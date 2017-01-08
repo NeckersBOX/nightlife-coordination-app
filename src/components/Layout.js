@@ -1,17 +1,23 @@
 import React from 'react';
 
 const Layout = React.createClass ({
+  getInitialState () {
+    return { location: '', loading: false };
+  },
   render () {
     return (
       <div>
         <h1 className="text-center">Nightlife Coordination App</h1>
         <div className="text-center">
           <form className="search-location">
-            <input type="text" placeholder="City - Ex. Rome" />
-            <a>
+            <input onChange={this.changeLoc} type="text" placeholder="City - Ex. Rome"
+              disabled={this.state.loading} />
+            <a className={this.state.loading ? 'disabled' : ''} onClick={this.getNightlife}>
               <i className="material-icons">location_on</i>
             </a>
           </form>
+
+          { this.state.loading ? <div className="loading"></div> : '' }
         </div>
         <div>
           <p className="text-center">
@@ -28,6 +34,29 @@ const Layout = React.createClass ({
         </div>
       </div>
     );
+  },
+  changeLoc (e) {
+    this.setState ({ location: e.target.value });
+  },
+  getNightlife () {
+    this.setState ({ loading: true });
+
+    let request = new XMLHttpRequest ();
+    request.open ('POST', '/locations', true);
+    request.setRequestHeader ('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+    request.onload = () => {
+      {/* TODO: Handle errors */}
+      if ( request.status != 200 )
+        return console.error (request.status + ' ' + request.statusText );
+
+      let data = JSON.parse (request.responseText);
+      {/* TODO: Handle results */}
+      console.log (data);
+    };
+
+    request.onerror = () => console.error ('POST /locations. Request failed.');
+    request.send ('location=' + this.state.location);
   }
 });
 

@@ -26,6 +26,10 @@ a {
     text-decoration: none; }
     a:hover small, a:focus small {
       border-bottom-color: #990000; }
+  a.disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    background-color: #aaaaaa !important; }
 
 .loading {
   border-radius: 50%;

@@ -20234,7 +20234,7 @@
 /* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -20247,75 +20247,104 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Layout = _react2.default.createClass({
-	  displayName: "Layout",
+	  displayName: 'Layout',
+	  getInitialState: function getInitialState() {
+	    return { location: '', loading: false };
+	  },
 	  render: function render() {
 	    return _react2.default.createElement(
-	      "div",
+	      'div',
 	      null,
 	      _react2.default.createElement(
-	        "h1",
-	        { className: "text-center" },
-	        "Nightlife Coordination App"
+	        'h1',
+	        { className: 'text-center' },
+	        'Nightlife Coordination App'
 	      ),
 	      _react2.default.createElement(
-	        "div",
-	        { className: "text-center" },
+	        'div',
+	        { className: 'text-center' },
 	        _react2.default.createElement(
-	          "form",
-	          { className: "search-location" },
-	          _react2.default.createElement("input", { type: "text", placeholder: "City - Ex. Rome" }),
+	          'form',
+	          { className: 'search-location' },
+	          _react2.default.createElement('input', { onChange: this.changeLoc, type: 'text', placeholder: 'City - Ex. Rome',
+	            disabled: this.state.loading }),
 	          _react2.default.createElement(
-	            "a",
-	            null,
+	            'a',
+	            { className: this.state.loading ? 'disabled' : '', onClick: this.getNightlife },
 	            _react2.default.createElement(
-	              "i",
-	              { className: "material-icons" },
-	              "location_on"
+	              'i',
+	              { className: 'material-icons' },
+	              'location_on'
 	            )
 	          )
-	        )
+	        ),
+	        this.state.loading ? _react2.default.createElement('div', { className: 'loading' }) : ''
 	      ),
 	      _react2.default.createElement(
-	        "div",
+	        'div',
 	        null,
 	        _react2.default.createElement(
-	          "p",
-	          { className: "text-center" },
+	          'p',
+	          { className: 'text-center' },
 	          _react2.default.createElement(
-	            "a",
-	            { href: "https://github.com/NeckersBOX/nightlife-coordination-app" },
+	            'a',
+	            { href: 'https://github.com/NeckersBOX/nightlife-coordination-app' },
 	            _react2.default.createElement(
-	              "small",
+	              'small',
 	              null,
-	              "GitHub Project"
+	              'GitHub Project'
 	            )
 	          )
 	        ),
 	        _react2.default.createElement(
-	          "p",
-	          { className: "text-center text-secondary" },
+	          'p',
+	          { className: 'text-center text-secondary' },
 	          _react2.default.createElement(
-	            "small",
+	            'small',
 	            null,
-	            "Written by Davide Francesco Merico"
+	            'Written by Davide Francesco Merico'
 	          )
 	        ),
 	        _react2.default.createElement(
-	          "p",
-	          { className: "text-center text-secondary" },
+	          'p',
+	          { className: 'text-center text-secondary' },
 	          _react2.default.createElement(
-	            "small",
+	            'small',
 	            null,
-	            "Powered by ",
+	            'Powered by ',
 	            _react2.default.createElement(
-	              "b",
+	              'b',
 	              null,
-	              "Yelp API"
+	              'Yelp API'
 	            )
 	          )
 	        )
 	      )
 	    );
+	  },
+	  changeLoc: function changeLoc(e) {
+	    this.setState({ location: e.target.value });
+	  },
+	  getNightlife: function getNightlife() {
+	    this.setState({ loading: true });
+
+	    var request = new XMLHttpRequest();
+	    request.open('POST', '/locations', true);
+	    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+	    request.onload = function () {
+	      {/* TODO: Handle errors */}
+	      if (request.status != 200) return console.error(request.status + ' ' + request.statusText);
+
+	      var data = JSON.parse(request.responseText);
+	      {/* TODO: Handle results */}
+	      console.log(data);
+	    };
+
+	    request.onerror = function () {
+	      return console.error('POST /locations. Request failed.');
+	    };
+	    request.send('location=' + this.state.location);
 	  }
 	});
 
