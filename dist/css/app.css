@@ -1,5 +1,31 @@
 body {
-  background-color: #111; }
+  background-color: #111111;
+  color: #eeeeee;
+  font-family: Roboto, sans-serif;
+  letter-spacing: 0.1rem; }
+
+h1 {
+  background-color: #990000;
+  margin: -8px;
+  margin-bottom: 0.8em;
+  padding: 1em; }
+
+a {
+  cursor: pointer;
+  color: #990000;
+  text-decoration: none; }
+  a small {
+    border-bottom: 1px dashed #992200; }
+  a:visited {
+    color: #990000;
+    text-decoration: none; }
+    a:visited small {
+      border-bottom-width: 0; }
+  a:hover, a:focus {
+    color: #990000;
+    text-decoration: none; }
+    a:hover small, a:focus small {
+      border-bottom-color: #990000; }
 
 .loading {
   border-radius: 50%;
@@ -8,22 +34,22 @@ body {
   text-indent: -9999em;
   width: 11em;
   height: 11em;
-  background: #fff;
-  background: linear-gradient(to right, #fff 10%, rgba(255, 255, 255, 0) 42%);
+  background: #eeeeee;
+  background: linear-gradient(to right, #eeeeee 10%, rgba(255, 255, 255, 0) 42%);
   position: relative;
   animation: load-anim 1.4s infinite linear;
   transform: translateZ(0); }
   .loading:before {
     width: 50%;
     height: 50%;
-    background: #fff;
+    background: #eeeeee;
     border-radius: 100% 0 0 0;
     position: absolute;
     top: 0;
     left: 0;
     content: ''; }
   .loading:after {
-    background: #111;
+    background: #111111;
     width: 75%;
     height: 75%;
     border-radius: 50%;
@@ -40,3 +66,36 @@ body {
     transform: rotate(0deg); }
   100% {
     transform: rotate(360deg); } }
+
+.text-center {
+  text-align: center; }
+
+.text-secondary {
+  color: #aaaaaa; }
+
+.text-primary {
+  color: #eeeeee; }
+
+.search-location input {
+  border-radius: 4px 0 0 4px;
+  padding: 13px;
+  font-size: 22px;
+  font-family: Roboto, sans-serif;
+  border: 1px solid #aaaaaa;
+  border-right-width: 0;
+  width: calc(100% - 90px); }
+
+.search-location a {
+  background-color: #990000;
+  color: #eeeeee;
+  padding: 16px 32px;
+  border-radius: 0 4px 4px 0;
+  border: 1px solid #aaaaaa;
+  border-left-width: 0;
+  position: relative;
+  top: -2px; }
+  .search-location a:hover, .search-location a:focus {
+    background-color: #992200; }
+  .search-location a i {
+    position: relative;
+    top: 6px; }

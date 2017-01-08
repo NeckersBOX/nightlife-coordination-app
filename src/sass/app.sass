@@ -1,7 +1,42 @@
-$darkBlack: #111
+$backColor: #111111
+$frontColor: #eeeeee
+$secondaryColor: #aaaaaa
+$accentColor: #990000
+$accentLightColor: #992200
 
 body
-  background-color: $darkBlack
+  background-color: $backColor
+  color: $frontColor
+  font-family: Roboto, sans-serif
+  letter-spacing: 0.1rem
+
+h1
+  background-color: $accentColor
+  margin: -8px
+  margin-bottom: 0.8em
+  padding: 1em
+
+a
+  cursor: pointer
+  color: $accentColor
+  text-decoration: none
+
+  small
+    border-bottom: 1px dashed $accentLightColor
+
+  &:visited
+    color: $accentColor
+    text-decoration: none
+
+    small
+      border-bottom-width: 0
+
+  &:hover, &:focus
+    color: $accentColor
+    text-decoration: none
+
+    small
+      border-bottom-color: $accentColor
 
 .loading
   border-radius: 50%
@@ -10,8 +45,8 @@ body
   text-indent: -9999em
   width: 11em
   height: 11em
-  background: #fff
-  background: linear-gradient(to right, #fff 10%, rgba(255,255,255,0) 42%)
+  background: $frontColor
+  background: linear-gradient(to right, $frontColor 10%, rgba(255,255,255,0) 42%)
   position: relative
   animation: load-anim 1.4s infinite linear
   transform: translateZ(0)
@@ -19,7 +54,7 @@ body
   &:before
     width: 50%
     height: 50%
-    background: #fff
+    background: $frontColor
     border-radius: 100% 0 0 0
     position: absolute
     top: 0
@@ -27,7 +62,7 @@ body
     content: ''
 
   &:after
-    background: $darkBlack
+    background: $backColor
     width: 75%
     height: 75%
     border-radius: 50%
@@ -44,3 +79,39 @@ body
     transform: rotate(0deg)
   100%
     transform: rotate(360deg)
+
+.text-center
+  text-align: center
+
+.text-secondary
+  color: $secondaryColor
+
+.text-primary
+  color: $frontColor
+
+.search-location
+  input
+    border-radius: 4px 0 0 4px
+    padding: 13px
+    font-size: 22px
+    font-family: Roboto, sans-serif
+    border: 1px solid $secondaryColor
+    border-right-width: 0
+    width: calc(100% - 90px)
+
+  a
+    background-color: $accentColor
+    color: $frontColor
+    padding: 16px 32px
+    border-radius: 0 4px 4px 0
+    border: 1px solid $secondaryColor
+    border-left-width: 0
+    position: relative
+    top: -2px
+
+    &:hover, &:focus
+      background-color: $accentLightColor
+
+    i
+      position: relative
+      top: 6px
