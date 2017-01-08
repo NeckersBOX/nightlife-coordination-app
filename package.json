@@ -1,6 +1,6 @@
 {
   "name": "nightlife-coordination-app",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Nightlife Coordination App - freeCodeCamp Project",
   "main": "server.js",
   "scripts": {
