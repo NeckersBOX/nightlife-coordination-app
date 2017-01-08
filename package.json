@@ -2,9 +2,10 @@
   "name": "nightlife-coordination-app",
   "version": "1.0.0",
   "description": "Nightlife Coordination App - freeCodeCamp Project",
-  "main": "gulpfile.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
