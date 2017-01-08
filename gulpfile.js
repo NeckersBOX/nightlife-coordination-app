@@ -8,7 +8,7 @@ const webpackStream = require ('webpack-stream');
 const del = require ('del');
 
 gulp.task ('sass', () =>
-  gulp.src ('src/**/*.sass').pipe (sass ()).pipe (gulp.dest ('dist/css/'))
+  gulp.src ('src/sass/*.sass').pipe (sass ()).pipe (gulp.dest ('dist/css/'))
 );
 
 gulp.task ('webpack', (cb) =>
@@ -42,6 +42,6 @@ gulp.task ('build', [ 'sass', 'webpack' ]);
 gulp.task ('clean', () => del ([ 'babel_cache' ]));
 
 gulp.task ('watch', () => {
-  gulp.watch ('src/**/*.sass', [ 'sass' ]);
+  gulp.watch ('src/sass/*.sass', [ 'sass' ]);
   gulp.watch ('src/**/*.js', [ 'webpack' ]);
 });
