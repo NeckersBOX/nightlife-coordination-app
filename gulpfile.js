@@ -7,7 +7,7 @@ const webpack = require ('webpack');
 const del = require ('del');
 
 gulp.task ('sass', () =>
-  gulp.src ('src/sass/*.sass').pipe (sass ()).pipe (gulp.dest ('dist/css/'))
+  gulp.src ('src/**/*.sass').pipe (sass ()).pipe (gulp.dest ('dist/css/'))
 );
 
 gulp.task ('webpack', (cb) =>
