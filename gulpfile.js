@@ -4,6 +4,7 @@ const gulp = require ('gulp');
 const minify = require ('gulp-minify');
 const sass = require ('gulp-sass');
 const webpack = require ('webpack');
+const webpackStream = require ('webpack-stream');
 const del = require ('del');
 
 gulp.task ('sass', () =>
