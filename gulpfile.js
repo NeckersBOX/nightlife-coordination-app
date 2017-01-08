@@ -41,6 +41,6 @@ gulp.task ('build', [ 'sass', 'webpack' ]);
 gulp.task ('clean', () => del ([ 'babel_cache' ]));
 
 gulp.task ('watch', () => {
-  gulp.watch ('src/sass/*.sass', [ 'sass' ]);
-  gulp.watch ('src/js/**/*.js', [ 'webpack' ]);
+  gulp.watch ('src/**/*.sass', [ 'sass' ]);
+  gulp.watch ('src/**/*.js', [ 'webpack' ]);
 });
