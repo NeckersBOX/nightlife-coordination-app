@@ -44,7 +44,6 @@
     "ejs": "^2.5.5",
     "express": "^4.14.0",
     "fs": "0.0.1-security",
-    "material-ui": "^0.16.6",
     "mongodb": "^2.2.19",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
