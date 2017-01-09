@@ -4,6 +4,7 @@ const express = require ('express');
 const path = require ('path');
 const fs = require ('fs');
 const bodyParser = require ('body-parser');
+const Yelp = require ('yelp');
 
 const buildHTTPError = (res, status) => {
   let desc = {
@@ -41,8 +42,22 @@ app.post ('/locations', (req, res) => {
   if ( !location.length )
     return buildHTTPError (res, 400);
 
+  let yelp = new Yelp ({
+    consumer_key: process.env.consumer_key,
+    consumer_secret: process.env.consumer_secret,
+    token: process.env.token,
+    token_secret: process.env.token_secret
+  });
+
   res.writeHead (200, { 'Content-Type': 'application/json' });
-  res.end (JSON.stringify ({ error: false, success: true }));
+
+  yelp.search ({ term: 'bar,food', location: location })
+    .then (function (data) {
+      res.end (JSON.stringify ({ error: false, res: data }));
+    })
+    .catch (function (err) {
+      res.end (JSON.stringify ({ error: true, desc: err }));
+    });
 });
 
 app.listen (process.env.PORT || 3000, err => {
