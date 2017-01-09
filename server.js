@@ -51,7 +51,7 @@ app.post ('/locations', (req, res) => {
 
   res.writeHead (200, { 'Content-Type': 'application/json' });
 
-  yelp.search ({ term: 'bar,food', location: location })
+  yelp.search ({ term: 'bar,food', location: location, limit: 20, offset: req.body.offset || 0 })
     .then (function (data) {
       res.end (JSON.stringify ({ error: false, res: data }));
     })

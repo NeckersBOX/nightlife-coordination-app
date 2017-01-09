@@ -20383,6 +20383,7 @@
 	var Business = _react2.default.createClass({
 	  displayName: 'Business',
 	  render: function render() {
+	    console.log(this.props.data);
 	    return _react2.default.createElement(
 	      'h1',
 	      null,
