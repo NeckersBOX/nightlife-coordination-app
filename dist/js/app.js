@@ -20347,7 +20347,7 @@
 	    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
 	    request.onload = function () {
-	      if (request.status != 200) return _this.setState({ error: request.status + ' ' + request.statusText });
+	      if (request.status != 200) return _this.setState({ error: request.status + ' ' + request.statusText, loading: false });
 
 	      var data = JSON.parse(request.responseText);
 	      if (data.error) return _this.setState({ error: data.error });

@@ -80,6 +80,9 @@ a {
 .text-primary {
   color: #eeeeee; }
 
+.text-accent {
+  color: #990000; }
+
 .search-location input {
   border-radius: 4px 0 0 4px;
   padding: 13px;

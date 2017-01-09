@@ -54,7 +54,7 @@ const Layout = React.createClass ({
 
     request.onload = () => {
       if ( request.status != 200 )
-        return this.setState ({ error: request.status + ' ' + request.statusText });
+        return this.setState ({ error: request.status + ' ' + request.statusText, loading: false });
 
       let data = JSON.parse (request.responseText);
       if ( data.error )
