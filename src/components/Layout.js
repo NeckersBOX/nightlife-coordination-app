@@ -1,14 +1,17 @@
 import React from 'react';
+import Business from './Business';
 
 const Layout = React.createClass ({
   getInitialState () {
-    return { location: '', loading: false };
+    return { location: '', loading: false, error: false, data: null };
   },
   render () {
     return (
       <div>
         <h1 className="text-center">Nightlife Coordination App</h1>
         <div className="text-center">
+          { this.state.error ? <p className="text-accent">{this.state.error}</p> : '' }
+
           <form className="search-location">
             <input onChange={this.changeLoc} type="text" placeholder="City - Ex. Rome"
               disabled={this.state.loading} />
@@ -16,6 +19,10 @@ const Layout = React.createClass ({
               <i className="material-icons">location_on</i>
             </a>
           </form>
+
+          { this.state.data ? this.state.data.map ((business, idx) =>
+              <Business key={idx} data={business} />
+            ) : '' }
 
           { this.state.loading ? <div className="loading"></div> : '' }
         </div>
@@ -39,20 +46,21 @@ const Layout = React.createClass ({
     this.setState ({ location: e.target.value });
   },
   getNightlife () {
-    this.setState ({ loading: true });
+    this.setState ({ loading: true, data: null });
 
     let request = new XMLHttpRequest ();
     request.open ('POST', '/locations', true);
     request.setRequestHeader ('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
     request.onload = () => {
-      {/* TODO: Handle errors */}
       if ( request.status != 200 )
-        return console.error (request.status + ' ' + request.statusText );
+        return this.setState ({ error: request.status + ' ' + request.statusText });
 
       let data = JSON.parse (request.responseText);
-      {/* TODO: Handle results */}
-      console.log (data);
+      if ( data.error )
+        return this.setState ({ error: data.error });
+
+      this.setState ({ loading: false, data: data.res.businesses })
     };
 
     request.onerror = () => console.error ('POST /locations. Request failed.');

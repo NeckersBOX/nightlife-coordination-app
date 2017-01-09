@@ -20244,12 +20244,16 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _Business = __webpack_require__(167);
+
+	var _Business2 = _interopRequireDefault(_Business);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Layout = _react2.default.createClass({
 	  displayName: 'Layout',
 	  getInitialState: function getInitialState() {
-	    return { location: '', loading: false };
+	    return { location: '', loading: false, error: false, data: null };
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
@@ -20263,6 +20267,11 @@
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'text-center' },
+	        this.state.error ? _react2.default.createElement(
+	          'p',
+	          { className: 'text-accent' },
+	          this.state.error
+	        ) : '',
 	        _react2.default.createElement(
 	          'form',
 	          { className: 'search-location' },
@@ -20278,6 +20287,9 @@
 	            )
 	          )
 	        ),
+	        this.state.data ? this.state.data.map(function (business, idx) {
+	          return _react2.default.createElement(_Business2.default, { key: idx, data: business });
+	        }) : '',
 	        this.state.loading ? _react2.default.createElement('div', { className: 'loading' }) : ''
 	      ),
 	      _react2.default.createElement(
@@ -20326,19 +20338,21 @@
 	    this.setState({ location: e.target.value });
 	  },
 	  getNightlife: function getNightlife() {
-	    this.setState({ loading: true });
+	    var _this = this;
+
+	    this.setState({ loading: true, data: null });
 
 	    var request = new XMLHttpRequest();
 	    request.open('POST', '/locations', true);
 	    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
 	    request.onload = function () {
-	      {/* TODO: Handle errors */}
-	      if (request.status != 200) return console.error(request.status + ' ' + request.statusText);
+	      if (request.status != 200) return _this.setState({ error: request.status + ' ' + request.statusText });
 
 	      var data = JSON.parse(request.responseText);
-	      {/* TODO: Handle results */}
-	      console.log(data);
+	      if (data.error) return _this.setState({ error: data.error });
+
+	      _this.setState({ loading: false, data: data.res.businesses });
 	    };
 
 	    request.onerror = function () {
@@ -20349,6 +20363,35 @@
 	});
 
 	exports.default = Layout;
+
+/***/ },
+/* 167 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Business = _react2.default.createClass({
+	  displayName: 'Business',
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'h1',
+	      null,
+	      'Business'
+	    );
+	  }
+	});
+
+	exports.default = Business;
 
 /***/ }
 /******/ ]);
