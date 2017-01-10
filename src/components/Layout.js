@@ -60,7 +60,7 @@ const Layout = React.createClass ({
       if ( data.error )
         return this.setState ({ loading: false, error: data.error });
 
-      if ( data.res.business )
+      if ( data.res.businesses )
         this.setState ({ loading: false, data: data.res.businesses, error: false });
       else this.setState ({ loading: false, error: 'No results found.' });
     };
