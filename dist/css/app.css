@@ -106,3 +106,41 @@ a {
   .search-location a i {
     position: relative;
     top: 6px; }
+
+.result-box {
+  background-color: #222222;
+  padding: 1em; }
+  .result-box div {
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 1em;
+    margin-top: 3px; }
+  .result-box img {
+    border-radius: 4px;
+    margin-top: 1em; }
+  .result-box h2 {
+    text-align: center;
+    margin: -0.5em;
+    margin-bottom: 0;
+    padding: 0.5em;
+    background-color: #990000; }
+  .result-box a {
+    background-color: #990000;
+    color: #eeeeee;
+    padding: 0.5em; }
+  .result-box .badge {
+    background-color: #aaaaaa;
+    color: #eeeeee;
+    padding: 1px 3px;
+    margin-right: 2px;
+    border-radius: 3px; }
+  .result-box .snippet {
+    padding: 0;
+    margin: 0; }
+    .result-box .snippet img {
+      border-radius: 50%;
+      width: 64px;
+      height: 64px;
+      float: left;
+      margin: 0;
+      margin-right: 10px; }
