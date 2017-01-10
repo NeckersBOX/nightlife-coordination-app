@@ -20394,7 +20394,8 @@
 	        { key: _stars, className: "material-icons" },
 	        "star"
 	      ));
-	    }if (this.props.value - Math.floor(this.props.value)) rating.push(_react2.default.createElement(
+	    }console.log(this.props.value);
+	    if (this.props.value - Math.floor(this.props.value)) rating.push(_react2.default.createElement(
 	      "i",
 	      { key: stars, className: "material-icons" },
 	      "star_half"
