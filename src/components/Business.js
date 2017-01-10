@@ -13,7 +13,7 @@ const Rating = React.createClass ({
     rating = rating.concat (new Array (this.props.max - Math.ceil (this.props.value)).fill ().map (
       (val, idx) => <i key={'empty-star' + idx} className="material-icons">star_border</i>
     ));
-    
+
     return <span>{rating}</span>;
   }
 });
@@ -21,21 +21,24 @@ const Rating = React.createClass ({
 const Business = React.createClass ({
   render () {
     return (
-      <div>
-        <h2>{this.props.name}</h2>
+      <div className="result-box">
+        <h2>{this.props.name} <Rating value={this.props.rating} max={5} /></h2>
         <img src={this.props.image_url} alt={this.props.id} />
 
-        <p>{this.props.is_closed ? 'CLOSED' : 'OPEN'}</p>
+        <div>
+          {this.props.categories.map ((cat, idx) =>
+            <span key={idx} className="badge">{cat[0]}</span>)}
 
-        {this.props.categories.map ((cat, idx) =>
-          <span key={idx} className="result-badge">{cat[0]}</span>)}
-
-        <p>Phone {this.props.display_phone}</p>
-        <Rating value={this.props.rating} max={5} />
-        <a href={this.props.url}>Check this out</a>
-
-        <p>{this.props.snippet_text}</p>
-        <img src={this.props.snippet_image_url} />
+          <p>Phone {this.props.display_phone}</p>
+          <a href={this.props.url}>Show on Yelp</a>
+        </div>
+        
+        <div className="snippet">
+          <p>
+            <img src={this.props.snippet_image_url} />
+            {this.props.snippet_text}
+          </p>
+        </div>
       </div>
     );
   }

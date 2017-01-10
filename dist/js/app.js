@@ -20421,43 +20421,47 @@
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
-	      null,
+	      { className: 'result-box' },
 	      _react2.default.createElement(
 	        'h2',
 	        null,
-	        this.props.name
+	        this.props.name,
+	        ' ',
+	        _react2.default.createElement(Rating, { value: this.props.rating, max: 5 })
 	      ),
 	      _react2.default.createElement('img', { src: this.props.image_url, alt: this.props.id }),
 	      _react2.default.createElement(
-	        'p',
+	        'div',
 	        null,
-	        this.props.is_closed ? 'CLOSED' : 'OPEN'
-	      ),
-	      this.props.categories.map(function (cat, idx) {
-	        return _react2.default.createElement(
-	          'span',
-	          { key: idx, className: 'result-badge' },
-	          cat[0]
-	        );
-	      }),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        'Phone ',
-	        this.props.display_phone
-	      ),
-	      _react2.default.createElement(Rating, { value: this.props.rating, max: 5 }),
-	      _react2.default.createElement(
-	        'a',
-	        { href: this.props.url },
-	        'Check this out'
+	        this.props.categories.map(function (cat, idx) {
+	          return _react2.default.createElement(
+	            'span',
+	            { key: idx, className: 'badge' },
+	            cat[0]
+	          );
+	        }),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          'Phone ',
+	          this.props.display_phone
+	        ),
+	        _react2.default.createElement(
+	          'a',
+	          { href: this.props.url },
+	          'Show on Yelp'
+	        )
 	      ),
 	      _react2.default.createElement(
-	        'p',
-	        null,
-	        this.props.snippet_text
-	      ),
-	      _react2.default.createElement('img', { src: this.props.snippet_image_url })
+	        'div',
+	        { className: 'snippet' },
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          _react2.default.createElement('img', { src: this.props.snippet_image_url }),
+	          this.props.snippet_text
+	        )
+	      )
 	    );
 	  }
 	});
