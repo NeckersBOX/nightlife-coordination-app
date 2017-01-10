@@ -20395,6 +20395,8 @@
 	        "star"
 	      ));
 	    }console.log(this.props.value);
+	    console.log(this.props.value - Math.floor(this.props.value));
+	    console.log(stars);
 	    if (this.props.value - Math.floor(this.props.value)) rating.push(_react2.default.createElement(
 	      "i",
 	      { key: stars, className: "material-icons" },
