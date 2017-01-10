@@ -20444,13 +20444,17 @@
 	      _react2.default.createElement(
 	        'div',
 	        null,
-	        this.props.categories.map(function (cat, idx) {
+	        this.props.categories ? this.props.categories.map(function (cat, idx) {
 	          return _react2.default.createElement(
 	            'span',
 	            { key: idx, className: 'badge' },
 	            cat[0]
 	          );
-	        }),
+	        }) : _react2.default.createElement(
+	          'span',
+	          { className: 'badge' },
+	          'Food & Bar'
+	        ),
 	        _react2.default.createElement(
 	          'p',
 	          null,

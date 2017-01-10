@@ -35,8 +35,9 @@ const Business = React.createClass ({
         {this.props.image_url ? <img src={this.props.image_url} alt={this.props.id} /> : ''}
 
         <div>
-          {this.props.categories.map ((cat, idx) =>
-            <span key={idx} className="badge">{cat[0]}</span>)}
+          {this.props.categories ? this.props.categories.map ((cat, idx) =>
+            <span key={idx} className="badge">{cat[0]}</span>) :
+            <span className="badge">Food & Bar</span>}
 
           <p>Phone {this.props.display_phone}</p>
           <a href={this.props.url}>Show on Yelp</a>
