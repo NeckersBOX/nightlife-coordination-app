@@ -60,7 +60,7 @@ const Layout = React.createClass ({
       if ( data.error )
         return this.setState ({ error: data.error });
 
-      this.setState ({ loading: false, data: data.res.businesses })
+      this.setState ({ loading: false, data: data.res.businesses, error: false });
     };
 
     request.onerror = () => console.error ('POST /locations. Request failed.');

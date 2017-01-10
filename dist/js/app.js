@@ -20352,7 +20352,7 @@
 	      var data = JSON.parse(request.responseText);
 	      if (data.error) return _this.setState({ error: data.error });
 
-	      _this.setState({ loading: false, data: data.res.businesses });
+	      _this.setState({ loading: false, data: data.res.businesses, error: false });
 	    };
 
 	    request.onerror = function () {
@@ -20385,9 +20385,51 @@
 	  render: function render() {
 	    console.log(this.props.data);
 	    return _react2.default.createElement(
-	      'h1',
+	      'div',
 	      null,
-	      'Business'
+	      _react2.default.createElement(
+	        'h2',
+	        null,
+	        this.props.data.name
+	      ),
+	      _react2.default.createElement('img', { src: this.props.data.image_url, alt: this.props.data.id }),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        this.props.data.is_closed ? 'CLOSED' : 'OPEN'
+	      ),
+	      this.props.data.categories.map(function (cat, idx) {
+	        return _react2.default.createElement(
+	          'span',
+	          { key: idx, className: 'result-badge' },
+	          cat[0]
+	        );
+	      }),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        'Phone ',
+	        this.props.data.display_phone
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        'Rating ',
+	        this.props.data.rating,
+	        ' ',
+	        _react2.default.createElement('img', { src: this.props.data.rating_img_url })
+	      ),
+	      _react2.default.createElement(
+	        'a',
+	        { href: this.props.data.url },
+	        'Check this out'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        this.props.data.snippet_text
+	      ),
+	      _react2.default.createElement('img', { src: this.props.data.snippet_image_url })
 	    );
 	  }
 	});
