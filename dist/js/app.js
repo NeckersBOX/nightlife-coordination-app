@@ -20370,7 +20370,7 @@
 /* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -20383,34 +20383,35 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Rating = _react2.default.createClass({
-	  displayName: "Rating",
+	  displayName: 'Rating',
 	  render: function render() {
 	    var stars = 0;
 	    var rating = [];
 
 	    for (var _stars = 0; _stars < this.props.value; _stars++) {
 	      rating.push(_react2.default.createElement(
-	        "i",
-	        { key: _stars, className: "material-icons" },
-	        "star"
+	        'i',
+	        { key: _stars, className: 'material-icons' },
+	        'star'
 	      ));
 	    }console.log(this.props.value);
 	    console.log(this.props.value - Math.floor(this.props.value));
 	    console.log(stars);
-	    if (this.props.value - Math.floor(this.props.value)) rating.push(_react2.default.createElement(
-	      "i",
-	      { key: stars, className: "material-icons" },
-	      "star_half"
+	    console.log('---');
+	    if (this.props.value - Math.floor(this.props.value) == 0.5) rating.push(_react2.default.createElement(
+	      'i',
+	      { key: stars, className: 'material-icons' },
+	      'star_half'
 	    ));
 
 	    for (++stars; stars < this.props.max; stars++) {
 	      rating.push(_react2.default.createElement(
-	        "i",
-	        { key: stars, className: "material-icons" },
-	        "star_border"
+	        'i',
+	        { key: stars, className: 'material-icons' },
+	        'star_border'
 	      ));
 	    }return _react2.default.createElement(
-	      "span",
+	      'span',
 	      null,
 	      rating
 	    );
@@ -20418,47 +20419,47 @@
 	});
 
 	var Business = _react2.default.createClass({
-	  displayName: "Business",
+	  displayName: 'Business',
 	  render: function render() {
 	    return _react2.default.createElement(
-	      "div",
+	      'div',
 	      null,
 	      _react2.default.createElement(
-	        "h2",
+	        'h2',
 	        null,
 	        this.props.name
 	      ),
-	      _react2.default.createElement("img", { src: this.props.image_url, alt: this.props.id }),
+	      _react2.default.createElement('img', { src: this.props.image_url, alt: this.props.id }),
 	      _react2.default.createElement(
-	        "p",
+	        'p',
 	        null,
 	        this.props.is_closed ? 'CLOSED' : 'OPEN'
 	      ),
 	      this.props.categories.map(function (cat, idx) {
 	        return _react2.default.createElement(
-	          "span",
-	          { key: idx, className: "result-badge" },
+	          'span',
+	          { key: idx, className: 'result-badge' },
 	          cat[0]
 	        );
 	      }),
 	      _react2.default.createElement(
-	        "p",
+	        'p',
 	        null,
-	        "Phone ",
+	        'Phone ',
 	        this.props.display_phone
 	      ),
 	      _react2.default.createElement(Rating, { value: this.props.rating, max: 5 }),
 	      _react2.default.createElement(
-	        "a",
+	        'a',
 	        { href: this.props.url },
-	        "Check this out"
+	        'Check this out'
 	      ),
 	      _react2.default.createElement(
-	        "p",
+	        'p',
 	        null,
 	        this.props.snippet_text
 	      ),
-	      _react2.default.createElement("img", { src: this.props.snippet_image_url })
+	      _react2.default.createElement('img', { src: this.props.snippet_image_url })
 	    );
 	  }
 	});
