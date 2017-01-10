@@ -20,10 +20,19 @@ const Rating = React.createClass ({
 
 const Business = React.createClass ({
   render () {
+    let snippet = (
+      <div className="snippet">
+        <p>
+          <img src={this.props.snippet_image_url} />
+          {this.props.snippet_text}
+        </p>
+      </div>
+    );
+
     return (
       <div className="result-box">
         <h2>{this.props.name} <Rating value={this.props.rating} max={5} /></h2>
-        <img src={this.props.image_url} alt={this.props.id} />
+        {this.props.image_url ? <img src={this.props.image_url} alt={this.props.id} /> : ''}
 
         <div>
           {this.props.categories.map ((cat, idx) =>
@@ -32,13 +41,8 @@ const Business = React.createClass ({
           <p>Phone {this.props.display_phone}</p>
           <a href={this.props.url}>Show on Yelp</a>
         </div>
-        
-        <div className="snippet">
-          <p>
-            <img src={this.props.snippet_image_url} />
-            {this.props.snippet_text}
-          </p>
-        </div>
+
+        {(this.props.snippet_image_url && this.props.snippet_text) ? snippet : ''}
       </div>
     );
   }

@@ -20419,6 +20419,17 @@
 	var Business = _react2.default.createClass({
 	  displayName: 'Business',
 	  render: function render() {
+	    var snippet = _react2.default.createElement(
+	      'div',
+	      { className: 'snippet' },
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        _react2.default.createElement('img', { src: this.props.snippet_image_url }),
+	        this.props.snippet_text
+	      )
+	    );
+
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'result-box' },
@@ -20429,7 +20440,7 @@
 	        ' ',
 	        _react2.default.createElement(Rating, { value: this.props.rating, max: 5 })
 	      ),
-	      _react2.default.createElement('img', { src: this.props.image_url, alt: this.props.id }),
+	      this.props.image_url ? _react2.default.createElement('img', { src: this.props.image_url, alt: this.props.id }) : '',
 	      _react2.default.createElement(
 	        'div',
 	        null,
@@ -20452,16 +20463,7 @@
 	          'Show on Yelp'
 	        )
 	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'snippet' },
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          _react2.default.createElement('img', { src: this.props.snippet_image_url }),
-	          this.props.snippet_text
-	        )
-	      )
+	      this.props.snippet_image_url && this.props.snippet_text ? snippet : ''
 	    );
 	  }
 	});
