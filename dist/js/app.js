@@ -20240,6 +20240,8 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -20288,7 +20290,7 @@
 	          )
 	        ),
 	        this.state.data ? this.state.data.map(function (business, idx) {
-	          return _react2.default.createElement(_Business2.default, { key: idx, data: business });
+	          return _react2.default.createElement(_Business2.default, _extends({ key: idx }, business));
 	        }) : '',
 	        this.state.loading ? _react2.default.createElement('div', { className: 'loading' }) : ''
 	      ),
@@ -20368,7 +20370,7 @@
 /* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -20380,56 +20382,77 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Rating = _react2.default.createClass({
+	  displayName: "Rating",
+	  render: function render() {
+	    var stars = 0;
+	    var rating = [];
+
+	    for (var _stars = 0; _stars < this.props.value; _stars++) {
+	      rating.push(_react2.default.createElement(
+	        "i",
+	        { key: _stars, className: "material-icons" },
+	        "star"
+	      ));
+	    }if (this.props.value - Math.floor(this.props.value)) rating.push(_react2.default.createElement(
+	      "i",
+	      { key: stars, className: "material-icons" },
+	      "star_half"
+	    ));
+
+	    for (++stars; stars < this.props.max; stars++) {
+	      rating.push(_react2.default.createElement(
+	        "i",
+	        { key: stars, className: "material-icons" },
+	        "star_border"
+	      ));
+	    }
+	  }
+	});
+
 	var Business = _react2.default.createClass({
-	  displayName: 'Business',
+	  displayName: "Business",
 	  render: function render() {
 	    console.log(this.props.data);
 	    return _react2.default.createElement(
-	      'div',
+	      "div",
 	      null,
 	      _react2.default.createElement(
-	        'h2',
+	        "h2",
 	        null,
 	        this.props.data.name
 	      ),
-	      _react2.default.createElement('img', { src: this.props.data.image_url, alt: this.props.data.id }),
+	      _react2.default.createElement("img", { src: this.props.data.image_url, alt: this.props.data.id }),
 	      _react2.default.createElement(
-	        'p',
+	        "p",
 	        null,
 	        this.props.data.is_closed ? 'CLOSED' : 'OPEN'
 	      ),
 	      this.props.data.categories.map(function (cat, idx) {
 	        return _react2.default.createElement(
-	          'span',
-	          { key: idx, className: 'result-badge' },
+	          "span",
+	          { key: idx, className: "result-badge" },
 	          cat[0]
 	        );
 	      }),
 	      _react2.default.createElement(
-	        'p',
+	        "p",
 	        null,
-	        'Phone ',
+	        "Phone ",
 	        this.props.data.display_phone
 	      ),
+	      _react2.default.createElement(Rating, { value: this.props.rating, max: 5 }),
 	      _react2.default.createElement(
-	        'p',
-	        null,
-	        'Rating ',
-	        this.props.data.rating,
-	        ' ',
-	        _react2.default.createElement('img', { src: this.props.data.rating_img_url })
-	      ),
-	      _react2.default.createElement(
-	        'a',
+	        "a",
 	        { href: this.props.data.url },
-	        'Check this out'
+	        "Check this out"
 	      ),
 	      _react2.default.createElement(
-	        'p',
+	        "p",
 	        null,
 	        this.props.data.snippet_text
 	      ),
-	      _react2.default.createElement('img', { src: this.props.data.snippet_image_url })
+	      _react2.default.createElement("img", { src: this.props.data.snippet_image_url })
 	    );
 	  }
 	});

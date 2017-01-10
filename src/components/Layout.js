@@ -21,7 +21,7 @@ const Layout = React.createClass ({
           </form>
 
           { this.state.data ? this.state.data.map ((business, idx) =>
-              <Business key={idx} data={business} />
+              <Business key={idx} {...business} />
             ) : '' }
 
           { this.state.loading ? <div className="loading"></div> : '' }
