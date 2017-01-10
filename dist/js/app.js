@@ -20352,9 +20352,9 @@
 	      if (request.status != 200) return _this.setState({ error: request.status + ' ' + request.statusText, loading: false });
 
 	      var data = JSON.parse(request.responseText);
-	      if (data.error) return _this.setState({ error: data.error });
+	      if (data.error) return _this.setState({ loading: false, error: data.error });
 
-	      _this.setState({ loading: false, data: data.res.businesses, error: false });
+	      if (data.res.business) _this.setState({ loading: false, data: data.res.businesses, error: false });else _this.setState({ loading: false, error: 'No results found.' });
 	    };
 
 	    request.onerror = function () {
