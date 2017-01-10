@@ -20413,22 +20413,21 @@
 	var Business = _react2.default.createClass({
 	  displayName: "Business",
 	  render: function render() {
-	    console.log(this.props.data);
 	    return _react2.default.createElement(
 	      "div",
 	      null,
 	      _react2.default.createElement(
 	        "h2",
 	        null,
-	        this.props.data.name
+	        this.props.name
 	      ),
-	      _react2.default.createElement("img", { src: this.props.data.image_url, alt: this.props.data.id }),
+	      _react2.default.createElement("img", { src: this.props.image_url, alt: this.props.id }),
 	      _react2.default.createElement(
 	        "p",
 	        null,
-	        this.props.data.is_closed ? 'CLOSED' : 'OPEN'
+	        this.props.is_closed ? 'CLOSED' : 'OPEN'
 	      ),
-	      this.props.data.categories.map(function (cat, idx) {
+	      this.props.categories.map(function (cat, idx) {
 	        return _react2.default.createElement(
 	          "span",
 	          { key: idx, className: "result-badge" },
@@ -20439,20 +20438,20 @@
 	        "p",
 	        null,
 	        "Phone ",
-	        this.props.data.display_phone
+	        this.props.display_phone
 	      ),
 	      _react2.default.createElement(Rating, { value: this.props.rating, max: 5 }),
 	      _react2.default.createElement(
 	        "a",
-	        { href: this.props.data.url },
+	        { href: this.props.url },
 	        "Check this out"
 	      ),
 	      _react2.default.createElement(
 	        "p",
 	        null,
-	        this.props.data.snippet_text
+	        this.props.snippet_text
 	      ),
-	      _react2.default.createElement("img", { src: this.props.data.snippet_image_url })
+	      _react2.default.createElement("img", { src: this.props.snippet_image_url })
 	    );
 	  }
 	});

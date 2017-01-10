@@ -18,23 +18,22 @@ const Rating = React.createClass ({
 
 const Business = React.createClass ({
   render () {
-    console.log (this.props.data);
     return (
       <div>
-        <h2>{this.props.data.name}</h2>
-        <img src={this.props.data.image_url} alt={this.props.data.id} />
+        <h2>{this.props.name}</h2>
+        <img src={this.props.image_url} alt={this.props.id} />
 
-        <p>{this.props.data.is_closed ? 'CLOSED' : 'OPEN'}</p>
+        <p>{this.props.is_closed ? 'CLOSED' : 'OPEN'}</p>
 
-        {this.props.data.categories.map ((cat, idx) =>
+        {this.props.categories.map ((cat, idx) =>
           <span key={idx} className="result-badge">{cat[0]}</span>)}
 
-        <p>Phone {this.props.data.display_phone}</p>
+        <p>Phone {this.props.display_phone}</p>
         <Rating value={this.props.rating} max={5} />
-        <a href={this.props.data.url}>Check this out</a>
+        <a href={this.props.url}>Check this out</a>
 
-        <p>{this.props.data.snippet_text}</p>
-        <img src={this.props.data.snippet_image_url} />
+        <p>{this.props.snippet_text}</p>
+        <img src={this.props.snippet_image_url} />
       </div>
     );
   }
