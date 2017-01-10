@@ -13,6 +13,8 @@ const Rating = React.createClass ({
 
     for ( ++stars; stars < this.props.max; stars++ )
       rating.push (<i key={stars} className="material-icons">star_border</i>);
+
+    return <span>{rating}</span>;
   }
 });
 

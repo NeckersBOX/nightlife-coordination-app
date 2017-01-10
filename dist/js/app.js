@@ -20406,7 +20406,11 @@
 	        { key: stars, className: "material-icons" },
 	        "star_border"
 	      ));
-	    }
+	    }return _react2.default.createElement(
+	      "span",
+	      null,
+	      rating
+	    );
 	  }
 	});
 
