@@ -2,18 +2,18 @@ import React from 'react';
 
 const Rating = React.createClass ({
   render () {
-    let stars = 0;
-    let rating = [];
+    let half = (this.props.value - Math.floor (this.props.value)) != 0;
+    let rating = new Array (Math.floor (this.props.value)).fill ().map (
+      (val, idx) => <i key={'star' + idx} className="material-icons">star</i>
+    );
 
-    for ( let stars = 0; stars < this.props.value; stars++ )
-      rating.push (<i key={stars} className="material-icons">star</i>);
+    if ( half )
+      rating.push (<i key={'half-star'} className="material-icons">star_half</i>);
 
-    if ( (this.props.value - Math.floor (this.props.value)) == -0.5 )
-      rating.push (<i key={stars} className="material-icons">star_half</i>);
-
-    for ( ++stars; stars < this.props.max; stars++ )
-      rating.push (<i key={stars} className="material-icons">star_border</i>);
-
+    rating = rating.concat (new Array (this.props.max - Math.ceil (this.props.value)).fill ().map (
+      (val, idx) => <i key={'empty-star' + idx} className="material-icons">star_border</i>
+    ));
+    
     return <span>{rating}</span>;
   }
 });

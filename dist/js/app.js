@@ -20370,7 +20370,7 @@
 /* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -20383,31 +20383,33 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Rating = _react2.default.createClass({
-	  displayName: "Rating",
+	  displayName: 'Rating',
 	  render: function render() {
-	    var stars = 0;
-	    var rating = [];
+	    var half = this.props.value - Math.floor(this.props.value) != 0;
+	    var rating = new Array(Math.floor(this.props.value)).fill().map(function (val, idx) {
+	      return _react2.default.createElement(
+	        'i',
+	        { key: 'star' + idx, className: 'material-icons' },
+	        'star'
+	      );
+	    });
 
-	    for (var _stars = 0; _stars < this.props.value; _stars++) {
-	      rating.push(_react2.default.createElement(
-	        "i",
-	        { key: _stars, className: "material-icons" },
-	        "star"
-	      ));
-	    }if (this.props.value - Math.floor(this.props.value) == -0.5) rating.push(_react2.default.createElement(
-	      "i",
-	      { key: stars, className: "material-icons" },
-	      "star_half"
+	    if (half) rating.push(_react2.default.createElement(
+	      'i',
+	      { key: 'half-star', className: 'material-icons' },
+	      'star_half'
 	    ));
 
-	    for (++stars; stars < this.props.max; stars++) {
-	      rating.push(_react2.default.createElement(
-	        "i",
-	        { key: stars, className: "material-icons" },
-	        "star_border"
-	      ));
-	    }return _react2.default.createElement(
-	      "span",
+	    rating = rating.concat(new Array(this.props.max - Math.ceil(this.props.value)).fill().map(function (val, idx) {
+	      return _react2.default.createElement(
+	        'i',
+	        { key: 'empty-star' + idx, className: 'material-icons' },
+	        'star_border'
+	      );
+	    }));
+
+	    return _react2.default.createElement(
+	      'span',
 	      null,
 	      rating
 	    );
@@ -20415,47 +20417,47 @@
 	});
 
 	var Business = _react2.default.createClass({
-	  displayName: "Business",
+	  displayName: 'Business',
 	  render: function render() {
 	    return _react2.default.createElement(
-	      "div",
+	      'div',
 	      null,
 	      _react2.default.createElement(
-	        "h2",
+	        'h2',
 	        null,
 	        this.props.name
 	      ),
-	      _react2.default.createElement("img", { src: this.props.image_url, alt: this.props.id }),
+	      _react2.default.createElement('img', { src: this.props.image_url, alt: this.props.id }),
 	      _react2.default.createElement(
-	        "p",
+	        'p',
 	        null,
 	        this.props.is_closed ? 'CLOSED' : 'OPEN'
 	      ),
 	      this.props.categories.map(function (cat, idx) {
 	        return _react2.default.createElement(
-	          "span",
-	          { key: idx, className: "result-badge" },
+	          'span',
+	          { key: idx, className: 'result-badge' },
 	          cat[0]
 	        );
 	      }),
 	      _react2.default.createElement(
-	        "p",
+	        'p',
 	        null,
-	        "Phone ",
+	        'Phone ',
 	        this.props.display_phone
 	      ),
 	      _react2.default.createElement(Rating, { value: this.props.rating, max: 5 }),
 	      _react2.default.createElement(
-	        "a",
+	        'a',
 	        { href: this.props.url },
-	        "Check this out"
+	        'Check this out'
 	      ),
 	      _react2.default.createElement(
-	        "p",
+	        'p',
 	        null,
 	        this.props.snippet_text
 	      ),
-	      _react2.default.createElement("img", { src: this.props.snippet_image_url })
+	      _react2.default.createElement('img', { src: this.props.snippet_image_url })
 	    );
 	  }
 	});
