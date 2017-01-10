@@ -109,7 +109,9 @@ a {
 
 .result-box {
   background-color: #222222;
-  padding: 1em; }
+  padding: 1em;
+  text-align: left;
+  margin-bottom: 1em; }
   .result-box div {
     display: inline-block;
     vertical-align: top;
@@ -117,7 +119,8 @@ a {
     margin-top: 3px; }
   .result-box img {
     border-radius: 4px;
-    margin-top: 1em; }
+    margin-top: 1em;
+    margin-right: 0.5em; }
   .result-box h2 {
     text-align: center;
     margin: -0.5em;
@@ -130,7 +133,7 @@ a {
     padding: 0.5em; }
   .result-box .badge {
     background-color: #aaaaaa;
-    color: #eeeeee;
+    color: #111111;
     padding: 1px 3px;
     margin-right: 2px;
     border-radius: 3px; }
