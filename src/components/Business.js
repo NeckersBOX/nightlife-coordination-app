@@ -7,11 +7,8 @@ const Rating = React.createClass ({
 
     for ( let stars = 0; stars < this.props.value; stars++ )
       rating.push (<i key={stars} className="material-icons">star</i>);
-    console.log (this.props.value);
-    console.log (this.props.value - Math.floor (this.props.value));
-    console.log (stars);
-    console.log ('---');
-    if ( (this.props.value - Math.floor (this.props.value)) == 0.5 )
+
+    if ( (this.props.value - Math.floor (this.props.value)) == -0.5 )
       rating.push (<i key={stars} className="material-icons">star_half</i>);
 
     for ( ++stars; stars < this.props.max; stars++ )
