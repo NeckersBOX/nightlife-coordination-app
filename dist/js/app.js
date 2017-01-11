@@ -20292,6 +20292,11 @@
 	        this.state.data ? this.state.data.map(function (business, idx) {
 	          return _react2.default.createElement(_Business2.default, _extends({ key: idx }, business));
 	        }) : '',
+	        this.state.data && !this.state.loading ? _react2.default.createElement(
+	          'button',
+	          { onClick: this.loadMore, className: 'load-more' },
+	          'Load more business'
+	        ) : '',
 	        this.state.loading ? _react2.default.createElement('div', { className: 'loading' }) : ''
 	      ),
 	      _react2.default.createElement(
@@ -20361,6 +20366,28 @@
 	      return console.error('POST /locations. Request failed.');
 	    };
 	    request.send('location=' + this.state.location);
+	  },
+	  loadMore: function loadMore() {
+	    var _this2 = this;
+
+	    this.setState({ loading: true });
+	    var request = new XMLHttpRequest();
+	    request.open('POST', '/locations', true);
+	    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+	    request.onload = function () {
+	      if (request.status != 200) return _this2.setState({ error: request.status + ' ' + request.statusText, loading: false });
+
+	      var data = JSON.parse(request.responseText);
+	      if (data.error) return _this2.setState({ loading: false, error: data.error });
+
+	      if (data.res.businesses.length) _this2.setState({ loading: false, data: _this2.state.data.concat(data.res.businesses), error: false });else _this2.setState({ loading: false, error: 'No results found.' });
+	    };
+
+	    request.onerror = function () {
+	      return console.error('POST /locations. Request failed.');
+	    };
+	    request.send('location=' + this.state.location + '&offset=' + this.state.data.length);
 	  }
 	});
 

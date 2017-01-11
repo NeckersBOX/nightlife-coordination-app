@@ -147,3 +147,12 @@ a {
       float: left;
       margin: 0;
       margin-right: 10px; }
+
+.load-more {
+  width: 100%;
+  border-width: 0;
+  background-color: #990000;
+  color: #eeeeee;
+  padding: 1em;
+  font-size: 1em;
+  text-transform: uppercase; }

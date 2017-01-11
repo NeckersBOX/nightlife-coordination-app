@@ -23,7 +23,7 @@ const Layout = React.createClass ({
           { this.state.data ? this.state.data.map ((business, idx) =>
               <Business key={idx} {...business} />
             ) : '' }
-
+          { (this.state.data && !this.state.loading) ? <button onClick={this.loadMore} className="load-more">Load more business</button> : ''}
           { this.state.loading ? <div className="loading"></div> : '' }
         </div>
         <div>
@@ -67,6 +67,28 @@ const Layout = React.createClass ({
 
     request.onerror = () => console.error ('POST /locations. Request failed.');
     request.send ('location=' + this.state.location);
+  },
+  loadMore () {
+    this.setState ({ loading: true });
+    let request = new XMLHttpRequest ();
+    request.open ('POST', '/locations', true);
+    request.setRequestHeader ('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+    request.onload = () => {
+      if ( request.status != 200 )
+        return this.setState ({ error: request.status + ' ' + request.statusText, loading: false });
+
+      let data = JSON.parse (request.responseText);
+      if ( data.error )
+        return this.setState ({ loading: false, error: data.error });
+
+      if ( data.res.businesses.length )
+        this.setState ({ loading: false, data: this.state.data.concat (data.res.businesses), error: false });
+      else this.setState ({ loading: false, error: 'No results found.' });
+    }
+
+    request.onerror = () => console.error ('POST /locations. Request failed.');
+    request.send ('location=' + this.state.location + '&offset=' + this.state.data.length);
   }
 });
 
