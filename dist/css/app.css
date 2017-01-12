@@ -137,7 +137,8 @@ a {
     border-radius: 3px; }
   .result-box .snippet {
     padding: 0;
-    margin: 0; }
+    margin: 0;
+    display: block; }
     .result-box .snippet img {
       border-radius: 50%;
       width: 52px;
