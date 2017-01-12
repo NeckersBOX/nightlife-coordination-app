@@ -22955,7 +22955,6 @@
 	var Businesses = _react2.default.createClass({
 	  displayName: 'Businesses',
 	  render: function render() {
-	    console.log(this.props);
 	    return _react2.default.createElement(
 	      'div',
 	      null,
