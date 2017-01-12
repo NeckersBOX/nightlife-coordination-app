@@ -85,27 +85,26 @@ a {
 
 .search-location input {
   border-radius: 4px 0 0 4px;
-  padding: 13px;
+  padding: 15px;
   font-size: 22px;
   font-family: Roboto, sans-serif;
   border: 1px solid #aaaaaa;
   border-right-width: 0;
-  width: calc(100% - 90px); }
+  width: calc(100% - 90px);
+  height: 54px; }
 
-.search-location a {
+.search-location button {
   background-color: #990000;
   color: #eeeeee;
-  padding: 16px 32px;
+  padding: 14px 32px;
   border-radius: 0 4px 4px 0;
   border: 1px solid #aaaaaa;
   border-left-width: 0;
   position: relative;
-  top: -2px; }
-  .search-location a:hover, .search-location a:focus {
+  top: 5px;
+  cursor: pointer; }
+  .search-location button:hover, .search-location button:focus {
     background-color: #992200; }
-  .search-location a i {
-    position: relative;
-    top: 6px; }
 
 .result-box {
   background-color: #222222;
