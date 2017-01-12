@@ -22669,6 +22669,10 @@
 
 	var _Business2 = _interopRequireDefault(_Business);
 
+	var _SearchForm = __webpack_require__(207);
+
+	var _SearchForm2 = _interopRequireDefault(_SearchForm);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Layout = _react2.default.createClass({
@@ -22693,21 +22697,7 @@
 	          { className: 'text-accent' },
 	          this.state.error
 	        ) : '',
-	        _react2.default.createElement(
-	          'form',
-	          { className: 'search-location' },
-	          _react2.default.createElement('input', { onChange: this.changeLoc, type: 'text', placeholder: 'City - Ex. Rome',
-	            disabled: this.state.loading }),
-	          _react2.default.createElement(
-	            'a',
-	            { className: this.state.loading ? 'disabled' : '', onClick: this.getNightlife },
-	            _react2.default.createElement(
-	              'i',
-	              { className: 'material-icons' },
-	              'location_on'
-	            )
-	          )
-	        ),
+	        _react2.default.createElement(_SearchForm2.default, { onClick: this.getNightlife }),
 	        this.state.data ? this.state.data.map(function (business, idx) {
 	          return _react2.default.createElement(_Business2.default, _extends({ key: idx }, business));
 	        }) : '',
@@ -22763,10 +22753,8 @@
 	  changeLoc: function changeLoc(e) {
 	    this.setState({ location: e.target.value });
 	  },
-	  getNightlife: function getNightlife() {
+	  getNightlife: function getNightlife(location) {
 	    var _this = this;
-
-	    var location = this.state.location;
 
 	    this.setState({ loading: true, data: null });
 
@@ -22928,6 +22916,57 @@
 	});
 
 	exports.default = Business;
+
+/***/ },
+/* 207 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var SearchForm = _react2.default.createClass({
+	  displayName: 'SearchForm',
+	  getInitialState: function getInitialState() {
+	    return { location: '' };
+	  },
+	  render: function render() {
+	    var _this = this;
+
+	    return _react2.default.createElement(
+	      'form',
+	      { className: 'search-location' },
+	      _react2.default.createElement('input', { onChange: function onChange(e) {
+	          return _this.setState({ location: e.target.value });
+	        },
+	        type: 'text', placeholder: 'City - Ex. Rome' }),
+	      _react2.default.createElement(
+	        'button',
+	        { type: 'submit', onClick: this.sendForm },
+	        _react2.default.createElement(
+	          'i',
+	          { className: 'material-icons' },
+	          'location_on'
+	        )
+	      )
+	    );
+	  },
+	  sendForm: function sendForm(e) {
+	    e.preventDefault();
+
+	    this.props.onClick(this.state.location);
+	  }
+	});
+
+	exports.default = SearchForm;
 
 /***/ }
 /******/ ]);

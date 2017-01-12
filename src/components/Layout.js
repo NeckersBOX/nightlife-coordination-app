@@ -1,5 +1,6 @@
 import React from 'react';
 import Business from './Business';
+import SearchForm from './SearchForm';
 
 const Layout = React.createClass ({
   getInitialState () {
@@ -12,18 +13,13 @@ const Layout = React.createClass ({
         <div className="text-center">
           { this.state.error ? <p className="text-accent">{this.state.error}</p> : '' }
 
-          <form className="search-location">
-            <input onChange={this.changeLoc} type="text" placeholder="City - Ex. Rome"
-              disabled={this.state.loading} />
-            <a className={this.state.loading ? 'disabled' : ''} onClick={this.getNightlife}>
-              <i className="material-icons">location_on</i>
-            </a>
-          </form>
+          <SearchForm onClick={this.getNightlife} />
 
           { this.state.data ? this.state.data.map ((business, idx) =>
               <Business key={idx} {...business} />
             ) : '' }
-          { (this.state.data && !this.state.loading) ? <button onClick={this.loadMore} className="load-more">Load more business</button> : ''}
+          { (this.state.data && !this.state.loading) ?
+            <button onClick={this.loadMore} className="load-more">Load more business</button> : ''}
           { this.state.loading ? <div className="loading"></div> : '' }
         </div>
         <div>
@@ -45,9 +41,7 @@ const Layout = React.createClass ({
   changeLoc (e) {
     this.setState ({ location: e.target.value });
   },
-  getNightlife () {
-    let location = this.state.location;
-
+  getNightlife (location) {
     this.setState ({ loading: true, data: null });
 
     this.props.dispatch ({
