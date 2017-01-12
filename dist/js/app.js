@@ -22673,12 +22673,20 @@
 
 	var _SearchForm2 = _interopRequireDefault(_SearchForm);
 
+	var _Businesses = __webpack_require__(208);
+
+	var _Businesses2 = _interopRequireDefault(_Businesses);
+
+	var _AppInfo = __webpack_require__(209);
+
+	var _AppInfo2 = _interopRequireDefault(_AppInfo);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Layout = _react2.default.createClass({
 	  displayName: 'Layout',
 	  getInitialState: function getInitialState() {
-	    return { location: '', loading: false, error: false, data: null };
+	    return { loading: false, error: false, data: null };
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
@@ -22698,56 +22706,16 @@
 	          this.state.error
 	        ) : '',
 	        _react2.default.createElement(_SearchForm2.default, { onClick: this.getNightlife }),
-	        this.state.data ? this.state.data.map(function (business, idx) {
-	          return _react2.default.createElement(_Business2.default, _extends({ key: idx }, business));
-	        }) : '',
-	        this.state.data && !this.state.loading ? _react2.default.createElement(
-	          'button',
-	          { onClick: this.loadMore, className: 'load-more' },
-	          'Load more business'
-	        ) : '',
+	        _react2.default.createElement(
+	          _Businesses2.default,
+	          { loading: this.state.loading, loadMore: this.loadMore },
+	          this.state.data ? this.state.data.map(function (business, idx) {
+	            return _react2.default.createElement(_Business2.default, _extends({ key: idx }, business));
+	          }) : ''
+	        ),
 	        this.state.loading ? _react2.default.createElement('div', { className: 'loading' }) : ''
 	      ),
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          { className: 'text-center' },
-	          _react2.default.createElement(
-	            'a',
-	            { href: 'https://github.com/NeckersBOX/nightlife-coordination-app' },
-	            _react2.default.createElement(
-	              'small',
-	              null,
-	              'GitHub Project'
-	            )
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          { className: 'text-center text-secondary' },
-	          _react2.default.createElement(
-	            'small',
-	            null,
-	            'Written by Davide Francesco Merico'
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          { className: 'text-center text-secondary' },
-	          _react2.default.createElement(
-	            'small',
-	            null,
-	            'Powered by ',
-	            _react2.default.createElement(
-	              'b',
-	              null,
-	              'Yelp API'
-	            )
-	          )
-	        )
-	      )
+	      _react2.default.createElement(_AppInfo2.default, null)
 	    );
 	  },
 	  changeLoc: function changeLoc(e) {
@@ -22967,6 +22935,104 @@
 	});
 
 	exports.default = SearchForm;
+
+/***/ },
+/* 208 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Businesses = _react2.default.createClass({
+	  displayName: 'Businesses',
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      this.props.children,
+	      !this.props.loading ? _react2.default.createElement(
+	        'button',
+	        { onClick: this.props.loadMore, className: 'load-more' },
+	        'Load more business'
+	      ) : ''
+	    );
+	  }
+	});
+
+	exports.default = Businesses;
+
+/***/ },
+/* 209 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var AppInfo = _react2.default.createClass({
+	  displayName: "AppInfo",
+	  render: function render() {
+	    return _react2.default.createElement(
+	      "div",
+	      null,
+	      _react2.default.createElement(
+	        "p",
+	        { className: "text-center" },
+	        _react2.default.createElement(
+	          "a",
+	          { href: "https://github.com/NeckersBOX/nightlife-coordination-app" },
+	          _react2.default.createElement(
+	            "small",
+	            null,
+	            "GitHub Project"
+	          )
+	        )
+	      ),
+	      _react2.default.createElement(
+	        "p",
+	        { className: "text-center text-secondary" },
+	        _react2.default.createElement(
+	          "small",
+	          null,
+	          "Written by Davide Francesco Merico"
+	        )
+	      ),
+	      _react2.default.createElement(
+	        "p",
+	        { className: "text-center text-secondary" },
+	        _react2.default.createElement(
+	          "small",
+	          null,
+	          "Powered by ",
+	          _react2.default.createElement(
+	            "b",
+	            null,
+	            "Yelp API"
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+
+	exports.default = AppInfo;
 
 /***/ }
 /******/ ]);

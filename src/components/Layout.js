@@ -1,10 +1,12 @@
 import React from 'react';
 import Business from './Business';
 import SearchForm from './SearchForm';
+import Businesses from './Businesses';
+import AppInfo from './AppInfo';
 
 const Layout = React.createClass ({
   getInitialState () {
-    return { location: '', loading: false, error: false, data: null };
+    return { loading: false, error: false, data: null };
   },
   render () {
     return (
@@ -15,26 +17,15 @@ const Layout = React.createClass ({
 
           <SearchForm onClick={this.getNightlife} />
 
-          { this.state.data ? this.state.data.map ((business, idx) =>
+          <Businesses loading={this.state.loading} loadMore={this.loadMore}>
+            { this.state.data ? this.state.data.map ((business, idx) =>
               <Business key={idx} {...business} />
             ) : '' }
-          { (this.state.data && !this.state.loading) ?
-            <button onClick={this.loadMore} className="load-more">Load more business</button> : ''}
+          </Businesses>
+
           { this.state.loading ? <div className="loading"></div> : '' }
         </div>
-        <div>
-          <p className="text-center">
-            <a href="https://github.com/NeckersBOX/nightlife-coordination-app">
-              <small>GitHub Project</small>
-            </a>
-          </p>
-          <p className="text-center text-secondary">
-            <small>Written by Davide Francesco Merico</small>
-          </p>
-          <p className="text-center text-secondary">
-            <small>Powered by <b>Yelp API</b></small>
-          </p>
-        </div>
+        <AppInfo />
       </div>
     );
   },
