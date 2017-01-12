@@ -22708,7 +22708,7 @@
 	        _react2.default.createElement(_SearchForm2.default, { onClick: this.getNightlife }),
 	        _react2.default.createElement(
 	          _Businesses2.default,
-	          { error: this.state.error, loading: this.state.loading, loadMore: this.loadMore },
+	          { showButton: this.state.data && !this.state.loading, loadMore: this.loadMore },
 	          this.state.data ? this.state.data.map(function (business, idx) {
 	            return _react2.default.createElement(_Business2.default, _extends({ key: idx }, business));
 	          }) : ''
@@ -22955,11 +22955,12 @@
 	var Businesses = _react2.default.createClass({
 	  displayName: 'Businesses',
 	  render: function render() {
+	    console.log(this.props);
 	    return _react2.default.createElement(
 	      'div',
 	      null,
 	      this.props.children,
-	      !this.props.loading && !this.props.error ? _react2.default.createElement(
+	      this.props.showButton ? _react2.default.createElement(
 	        'button',
 	        { onClick: this.props.loadMore, className: 'load-more' },
 	        'Load more business'

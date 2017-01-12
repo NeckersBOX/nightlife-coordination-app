@@ -2,11 +2,12 @@ import React from 'react';
 
 const Businesses = React.createClass ({
   render () {
+    console.log (this.props);
     return (
       <div>
         {this.props.children}
 
-        { ( !this.props.loading && !this.props.error ) ?
+        { this.props.showButton ?
           <button onClick={this.props.loadMore} className="load-more">
             Load more business
           </button> : '' }
