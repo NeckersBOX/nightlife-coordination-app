@@ -6,7 +6,7 @@ const Businesses = React.createClass ({
       <div>
         {this.props.children}
 
-        { !this.props.loading ?
+        { ( !this.props.loading && !this.props.error ) ?
           <button onClick={this.props.loadMore} className="load-more">
             Load more business
           </button> : '' }

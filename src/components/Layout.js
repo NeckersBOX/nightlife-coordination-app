@@ -17,7 +17,7 @@ const Layout = React.createClass ({
 
           <SearchForm onClick={this.getNightlife} />
 
-          <Businesses loading={this.state.loading} loadMore={this.loadMore}>
+          <Businesses error={this.state.error} loading={this.state.loading} loadMore={this.loadMore}>
             { this.state.data ? this.state.data.map ((business, idx) =>
               <Business key={idx} {...business} />
             ) : '' }
