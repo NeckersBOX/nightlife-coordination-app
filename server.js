@@ -5,6 +5,8 @@ const path = require ('path');
 const fs = require ('fs');
 const bodyParser = require ('body-parser');
 const Yelp = require ('yelp');
+const twitterAPI = require('node-twitter-api');
+
 
 const buildHTTPError = (res, status) => {
   let desc = {

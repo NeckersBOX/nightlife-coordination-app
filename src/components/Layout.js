@@ -46,49 +46,56 @@ const Layout = React.createClass ({
     this.setState ({ location: e.target.value });
   },
   getNightlife () {
+    let location = this.state.location;
+
     this.setState ({ loading: true, data: null });
 
-    let request = new XMLHttpRequest ();
-    request.open ('POST', '/locations', true);
-    request.setRequestHeader ('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    this.props.dispatch ({
+      type: 'getJSON',
+      url: '/locations',
+      data: {
+        location: location
+      },
+      callback: (result) => {
+        if ( result.error )
+          return this.setState ({ error: result.error, loading: false });
 
-    request.onload = () => {
-      if ( request.status != 200 )
-        return this.setState ({ error: request.status + ' ' + request.statusText, loading: false });
+        if ( result.res.businesses.length ) {
+          this.setState ({ data: result.res.businesses, loading: false });
 
-      let data = JSON.parse (request.responseText);
-      if ( data.error )
-        return this.setState ({ loading: false, error: data.error });
+          this.props.dispatch ({
+            type: 'SET_LOCATION',
+            data: location
+          });
 
-      if ( data.res.businesses.length )
-        this.setState ({ loading: false, data: data.res.businesses, error: false });
-      else this.setState ({ loading: false, error: 'No results found.' });
-    };
+          return;
+        }
 
-    request.onerror = () => console.error ('POST /locations. Request failed.');
-    request.send ('location=' + this.state.location);
+        this.setState ({ error: 'No results found', loading: false });
+      }
+    });
   },
   loadMore () {
     this.setState ({ loading: true });
-    let request = new XMLHttpRequest ();
-    request.open ('POST', '/locations', true);
-    request.setRequestHeader ('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
-    request.onload = () => {
-      if ( request.status != 200 )
-        return this.setState ({ error: request.status + ' ' + request.statusText, loading: false });
+    this.props.dispatch ({
+      type: 'getJSON',
+      url: '/locations',
+      data: {
+        location: this.props.location,
+        offset: this.state.data.length
+      },
+      callback: (result) => {
+        if ( result.error )
+          return this.setState ({ error: result.error, loading: false });
 
-      let data = JSON.parse (request.responseText);
-      if ( data.error )
-        return this.setState ({ loading: false, error: data.error });
-
-      if ( data.res.businesses.length )
-        this.setState ({ loading: false, data: this.state.data.concat (data.res.businesses), error: false });
-      else this.setState ({ loading: false, error: 'No results found.' });
-    }
-
-    request.onerror = () => console.error ('POST /locations. Request failed.');
-    request.send ('location=' + this.state.location + '&offset=' + this.state.data.length);
+        this.setState ({
+          loading: false,
+          data: this.state.data.concat (result.res.businesses),
+          error: false
+        });
+      }
+    });
   }
 });
 
