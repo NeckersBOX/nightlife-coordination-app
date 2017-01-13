@@ -3,12 +3,6 @@ body {
   color: #eeeeee;
   font-family: Lato, sans-serif; }
 
-h1 {
-  background-color: #990000;
-  margin: -8px;
-  margin-bottom: 0.8em;
-  padding: 1em; }
-
 a {
   cursor: pointer;
   color: #990000;
@@ -29,6 +23,21 @@ a {
     cursor: not-allowed;
     pointer-events: none;
     background-color: #aaaaaa !important; }
+
+.header {
+  background-color: #990000;
+  margin: -8px;
+  margin-bottom: 0.8em;
+  padding: 1em; }
+  .header a {
+    cursor: pointer;
+    background-color: #eeeeee;
+    color: #990000;
+    padding: 0.5em;
+    margin: 0 0.5em;
+    font-weight: bold; }
+    .header a:hover, .header a:focus {
+      background-color: #aaaaaa; }
 
 .loading {
   border-radius: 50%;

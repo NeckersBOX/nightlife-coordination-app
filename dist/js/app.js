@@ -22693,9 +22693,23 @@
 	      'div',
 	      null,
 	      _react2.default.createElement(
-	        'h1',
-	        { className: 'text-center' },
-	        'Nightlife Coordination App'
+	        'div',
+	        { className: 'header text-center' },
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Nightlife Coordination App'
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          'Login with ',
+	          _react2.default.createElement(
+	            'a',
+	            null,
+	            'Twitter'
+	          )
+	        )
 	      ),
 	      _react2.default.createElement(
 	        'div',

@@ -10,12 +10,6 @@ body
   color: $frontColor
   font-family: Lato, sans-serif
 
-h1
-  background-color: $accentColor
-  margin: -8px
-  margin-bottom: 0.8em
-  padding: 1em
-
 a
   cursor: pointer
   color: $accentColor
@@ -42,6 +36,23 @@ a
     cursor: not-allowed
     pointer-events: none
     background-color: $secondaryColor !important
+
+.header
+  background-color: $accentColor
+  margin: -8px
+  margin-bottom: 0.8em
+  padding: 1em
+
+  a
+    cursor: pointer
+    background-color: $frontColor
+    color: $accentColor
+    padding: 0.5em
+    margin: 0 0.5em
+    font-weight: bold
+
+    &:hover, &:focus
+      background-color: $secondaryColor
 
 .loading
   border-radius: 50%

@@ -11,7 +11,11 @@ const Layout = React.createClass ({
   render () {
     return (
       <div>
-        <h1 className="text-center">Nightlife Coordination App</h1>
+        <div className="header text-center">
+          <h1>Nightlife Coordination App</h1>
+          <p>Login with <a>Twitter</a></p>
+        </div>
+
         <div className="text-center">
           { this.state.error ? <p className="text-accent">{this.state.error}</p> : '' }
 
