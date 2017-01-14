@@ -5,7 +5,7 @@ import Business from './Business';
 import SearchForm from './SearchForm';
 import Businesses from './Businesses';
 import AppInfo from './AppInfo';
-import TwitterLogin from './TwitterLogin';
+import Authentication from './Authentication';
 
 const Layout = React.createClass ({
   getInitialState () {
@@ -16,7 +16,7 @@ const Layout = React.createClass ({
       <div>
         <div className="header text-center">
           <h1>Nightlife Coordination App</h1>
-          <TwitterLogin />
+          <Authentication />
         </div>
 
         <div className="text-center">
@@ -90,7 +90,6 @@ const Layout = React.createClass ({
     });
   }
 });
-
 
 const StoreLayout = connect(mapStateToProps)(Layout);
 

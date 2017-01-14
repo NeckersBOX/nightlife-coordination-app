@@ -5,8 +5,6 @@ const path = require ('path');
 const fs = require ('fs');
 const bodyParser = require ('body-parser');
 const Yelp = require ('yelp');
-const twitterAPI = require('node-twitter-api');
-
 
 const buildHTTPError = (res, status) => {
   let desc = {
@@ -24,6 +22,13 @@ const buildHTTPError = (res, status) => {
 };
 
 const app = new express ();
+
+const yelp = new Yelp ({
+  consumer_key: process.env.consumer_key,
+  consumer_secret: process.env.consumer_secret,
+  token: process.env.token,
+  token_secret: process.env.token_secret
+});
 
 app.set ('view engine', 'ejs');
 app.set ('views', path.join (__dirname, 'src/views'));
@@ -43,13 +48,6 @@ app.post ('/locations', (req, res) => {
   let location = req.body.location.trim ();
   if ( !location.length )
     return buildHTTPError (res, 400);
-
-  let yelp = new Yelp ({
-    consumer_key: process.env.consumer_key,
-    consumer_secret: process.env.consumer_secret,
-    token: process.env.token,
-    token_secret: process.env.token_secret
-  });
 
   res.writeHead (200, { 'Content-Type': 'application/json' });
 

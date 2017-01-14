@@ -22,6 +22,7 @@ export const userData = (state, action) => {
 
 export const mapStateToProps = (state) => {
   return {
+    userAuth: state.user_auth,
     userBusinesses: state.user_businesses.map ((val) => ({
       location: val.location,
       business: val.business

@@ -22613,6 +22613,7 @@
 
 	var mapStateToProps = exports.mapStateToProps = function mapStateToProps(state) {
 	  return {
+	    userAuth: state.user_auth,
 	    userBusinesses: state.user_businesses.map(function (val) {
 	      return {
 	        location: val.location,
@@ -22684,9 +22685,9 @@
 
 	var _AppInfo2 = _interopRequireDefault(_AppInfo);
 
-	var _TwitterLogin = __webpack_require__(210);
+	var _Authentication = __webpack_require__(210);
 
-	var _TwitterLogin2 = _interopRequireDefault(_TwitterLogin);
+	var _Authentication2 = _interopRequireDefault(_Authentication);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22707,7 +22708,7 @@
 	          null,
 	          'Nightlife Coordination App'
 	        ),
-	        _react2.default.createElement(_TwitterLogin2.default, null)
+	        _react2.default.createElement(_Authentication2.default, null)
 	      ),
 	      _react2.default.createElement(
 	        'div',
@@ -23066,10 +23067,164 @@
 
 	var _store = __webpack_require__(204);
 
+	var _SignUp = __webpack_require__(211);
+
+	var _SignUp2 = _interopRequireDefault(_SignUp);
+
+	var _Login = __webpack_require__(212);
+
+	var _Login2 = _interopRequireDefault(_Login);
+
+	var _Logged = __webpack_require__(213);
+
+	var _Logged2 = _interopRequireDefault(_Logged);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var TwitterLogin = _react2.default.createClass({
-	  displayName: 'TwitterLogin',
+	var Authentication = _react2.default.createClass({
+	  displayName: 'Authentication',
+	  getInitialState: function getInitialState() {
+	    return { module: null };
+	  },
+	  render: function render() {
+	    var _this = this;
+
+	    if (this.props.userAuth) return _react2.default.createElement(_Logged2.default, null);
+
+	    if (this.state.module) return this.state.module;
+
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'a',
+	        { onClick: function onClick() {
+	            return _this.setState({ module: _react2.default.createElement(_SignUp2.default, { back: _this.restoreComponent }) });
+	          } },
+	        'Sign Up'
+	      ),
+	      ' or ',
+	      _react2.default.createElement(
+	        'a',
+	        { onClick: function onClick() {
+	            return _this.setState({ module: _react2.default.createElement(_Login2.default, { back: _this.restoreComponent }) });
+	          } },
+	        'Login'
+	      )
+	    );
+	  },
+	  restoreComponent: function restoreComponent() {
+	    this.setState({ module: null });
+	  }
+	});
+
+	var StoreAuthentication = (0, _reactRedux.connect)(_store.mapStateToProps)(Authentication);
+
+	exports.default = StoreAuthentication;
+
+/***/ },
+/* 211 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(166);
+
+	var _store = __webpack_require__(204);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var SignUp = _react2.default.createClass({
+	  displayName: 'SignUp',
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'a',
+	        { onClick: this.props.back },
+	        'Cancel'
+	      )
+	    );
+	  }
+	});
+
+	var StoreSignup = (0, _reactRedux.connect)(_store.mapStateToProps)(SignUp);
+
+	exports.default = StoreSignup;
+
+/***/ },
+/* 212 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(166);
+
+	var _store = __webpack_require__(204);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Login = _react2.default.createClass({
+	  displayName: 'Login',
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'a',
+	        { onClick: this.props.back },
+	        'Cancel'
+	      )
+	    );
+	  }
+	});
+
+	var StoreLogin = (0, _reactRedux.connect)(_store.mapStateToProps)(Login);
+
+	exports.default = StoreLogin;
+
+/***/ },
+/* 213 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(166);
+
+	var _store = __webpack_require__(204);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Logged = _react2.default.createClass({
+	  displayName: 'Logged',
+	  getInitialState: function getInitialState() {
+	    return { error: error, false: false, loading: false };
+	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
@@ -23077,21 +23232,48 @@
 	      _react2.default.createElement(
 	        'p',
 	        null,
-	        'Login with ',
+	        'Welcome back ',
+	        this.props.userAuth.name,
+	        ' - ',
 	        _react2.default.createElement(
 	          'a',
-	          { onClick: this.twitterLogin },
-	          'Twitter'
+	          { onClick: this.logout },
+	          'Logout ',
+	          this.state.loading ? _react2.default.createElement('div', { className: 'loading' }) : ''
 	        )
-	      )
+	      ),
+	      this.state.error ? _react2.default.createElement(
+	        'p',
+	        { className: 'text-secondary' },
+	        'Logout Error: ',
+	        this.state.error
+	      ) : ''
 	    );
 	  },
-	  twitterLogin: function twitterLogin() {}
+	  logout: function logout() {
+	    var _this = this;
+
+	    this.setState({ loading: true, error: false });
+
+	    this.props.dispatch({
+	      type: 'getJSON',
+	      url: '/logout',
+	      data: {
+	        token: this.props.userAuth.token
+	      },
+	      callback: function callback(result) {
+	        if (result.error) return _this.setState({ error: result.error, loading: false });
+
+	        _this.setState({ loading: false });
+	        _this.props.dispatch({ type: 'USER_LOGOUT' });
+	      }
+	    });
+	  }
 	});
 
-	var StoreTwitterLogin = (0, _reactRedux.connect)(_store.mapStateToProps)(TwitterLogin);
+	var StoreLogged = (0, _reactRedux.connect)(_store.mapStateToProps)(Logged);
 
-	exports.default = StoreTwitterLogin;
+	exports.default = StoreLogged;
 
 /***/ }
 /******/ ]);

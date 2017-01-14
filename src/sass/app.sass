@@ -54,6 +54,19 @@ a
     &:hover, &:focus
       box-shadow: 0 0 7px 0 $frontColor
 
+    .loading
+      width: 3em
+      height: 3em
+      background: $accentColor
+      background: linear-gradient(to right, $accentColor 10%, rgba(255,255,255,0) 42%)
+      margin: 0
+      display: inline-block
+      margin-left: 7px
+      top: 3px
+
+      &:after
+        background-color: $frontColor
+
 .loading
   border-radius: 50%
   margin: 20px auto
