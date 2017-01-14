@@ -29,26 +29,27 @@ a {
   margin: -8px;
   margin-bottom: 0.8em;
   padding: 1em; }
-  .header a {
-    cursor: pointer;
-    background-color: #eeeeee;
-    color: #990000;
-    padding: 0.5em;
-    margin: 0 0.5em;
-    font-weight: bold; }
-    .header a:hover, .header a:focus {
-      box-shadow: 0 0 7px 0 #eeeeee; }
-    .header a .loading {
-      width: 3em;
-      height: 3em;
-      background: #990000;
-      background: linear-gradient(to right, #990000 10%, rgba(255, 255, 255, 0) 42%);
-      margin: 0;
-      display: inline-block;
-      margin-left: 7px;
-      top: 3px; }
-      .header a .loading:after {
-        background-color: #eeeeee; }
+
+.header-button, .header a, .signup-module button, .login-module button {
+  cursor: pointer;
+  background-color: #eeeeee;
+  color: #990000;
+  padding: 0.5em;
+  margin: 0 0.5em;
+  font-weight: bold; }
+  .header-button:hover, .header a:hover, .signup-module button:hover, .login-module button:hover, .header-button:focus, .header a:focus, .signup-module button:focus, .login-module button:focus {
+    box-shadow: 0 0 7px 0 #eeeeee; }
+  .header-button .loading, .header a .loading, .signup-module button .loading, .login-module button .loading {
+    width: 3em;
+    height: 3em;
+    background: #990000;
+    background: linear-gradient(to right, #990000 10%, rgba(255, 255, 255, 0) 42%);
+    margin: 0;
+    display: inline-block;
+    margin-left: 7px;
+    top: 3px; }
+    .header-button .loading:after, .header a .loading:after, .signup-module button .loading:after, .login-module button .loading:after {
+      background-color: #eeeeee; }
 
 .loading {
   border-radius: 50%;
@@ -176,3 +177,19 @@ a {
   font-size: 1em;
   text-transform: uppercase;
   cursor: pointer; }
+
+.signup-module, .login-module {
+  background-color: rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  padding: 1em;
+  padding-top: 0; }
+  .signup-module label, .login-module label {
+    display: block;
+    margin-bottom: 0.5em;
+    text-align: right; }
+    .signup-module label input, .login-module label input {
+      border-width: 0;
+      font-size: 15px;
+      padding: 3px; }
+  .signup-module button, .login-module button {
+    border-width: 0; }

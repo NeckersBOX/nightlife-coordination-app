@@ -44,28 +44,31 @@ a
   padding: 1em
 
   a
-    cursor: pointer
-    background-color: $frontColor
-    color: $accentColor
-    padding: 0.5em
-    margin: 0 0.5em
-    font-weight: bold
+    @extend .header-button
 
-    &:hover, &:focus
-      box-shadow: 0 0 7px 0 $frontColor
+.header-button
+  cursor: pointer
+  background-color: $frontColor
+  color: $accentColor
+  padding: 0.5em
+  margin: 0 0.5em
+  font-weight: bold
 
-    .loading
-      width: 3em
-      height: 3em
-      background: $accentColor
-      background: linear-gradient(to right, $accentColor 10%, rgba(255,255,255,0) 42%)
-      margin: 0
-      display: inline-block
-      margin-left: 7px
-      top: 3px
+  &:hover, &:focus
+    box-shadow: 0 0 7px 0 $frontColor
 
-      &:after
-        background-color: $frontColor
+  .loading
+    width: 3em
+    height: 3em
+    background: $accentColor
+    background: linear-gradient(to right, $accentColor 10%, rgba(255,255,255,0) 42%)
+    margin: 0
+    display: inline-block
+    margin-left: 7px
+    top: 3px
+
+    &:after
+      background-color: $frontColor
 
 .loading
   border-radius: 50%
@@ -204,3 +207,26 @@ a
   font-size: 1em
   text-transform: uppercase
   cursor: pointer
+
+.signup-module
+  background-color: rgba(0,0,0,0.1)
+  display: inline-block
+  padding: 1em
+  padding-top: 0
+
+  label
+    display: block
+    margin-bottom: 0.5em
+    text-align: right
+
+    input
+      border-width: 0
+      font-size: 15px
+      padding: 3px
+
+  button
+      @extend .header-button
+      border-width: 0
+
+.login-module
+  @extend .signup-module

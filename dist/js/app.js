@@ -23144,16 +23144,100 @@
 
 	var SignUp = _react2.default.createClass({
 	  displayName: 'SignUp',
+	  getInitialState: function getInitialState() {
+	    return {
+	      error: false,
+	      success: false,
+	      username: '',
+	      password: '',
+	      loading: false
+	    };
+	  },
 	  render: function render() {
+	    var _this = this;
+
 	    return _react2.default.createElement(
-	      'div',
-	      null,
+	      'form',
+	      { className: 'signup-module' },
 	      _react2.default.createElement(
-	        'a',
-	        { onClick: this.props.back },
-	        'Cancel'
+	        'h3',
+	        null,
+	        'Sign Up'
+	      ),
+	      this.state.error ? _react2.default.createElement(
+	        'p',
+	        { className: 'error' },
+	        'Error: ',
+	        this.state.error
+	      ) : '',
+	      this.state.success ? _react2.default.createElement(
+	        'p',
+	        { className: 'success' },
+	        this.state.success
+	      ) : '',
+	      _react2.default.createElement(
+	        'label',
+	        null,
+	        'Username ',
+	        _react2.default.createElement('input', { type: 'text', onChange: function onChange(e) {
+	            return _this.setState({ username: e.target.value });
+	          } })
+	      ),
+	      _react2.default.createElement(
+	        'label',
+	        null,
+	        'Password ',
+	        _react2.default.createElement('input', { type: 'password', onChange: function onChange(e) {
+	            return _this.setState({ password: e.target.value });
+	          } })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'button',
+	          { type: 'submit', onClick: function onClick(e) {
+	              e.preventDefault();_this.props.back();
+	            },
+	            disabled: this.state.loading },
+	          'Cancel'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { type: 'submit', onClick: function onClick(e) {
+	              e.preventDefault();_this.sendModule();
+	            },
+	            disabled: this.state.loading },
+	          'Submit'
+	        )
 	      )
 	    );
+	  },
+	  sendModule: function sendModule() {
+	    var _this2 = this;
+
+	    var username = this.state.username.trim();
+
+	    if (username.length < 8) return this.setState({ error: 'Username minimum characters 8' });
+
+	    if (this.state.password < 8) return this.setState({ error: 'Password minimum characters 8' });
+
+	    this.setState({ loading: true });
+
+	    this.props.dispatch({
+	      type: 'getJSON',
+	      url: '/signup',
+	      data: {
+	        username: username,
+	        password: this.state.password
+	      },
+	      callback: function callback(result) {
+	        if (result.error) return _this2.setState({ error: result.error, loading: false });
+
+	        _this2.setState({ success: 'Your account was created!' });
+	        setTimeout(_this2.props.back, 3000);
+	      }
+	    });
 	  }
 	});
 
@@ -23183,16 +23267,96 @@
 
 	var Login = _react2.default.createClass({
 	  displayName: 'Login',
+	  getInitialState: function getInitialState() {
+	    return {
+	      error: false,
+	      username: '',
+	      password: '',
+	      loading: false
+	    };
+	  },
 	  render: function render() {
+	    var _this = this;
+
 	    return _react2.default.createElement(
-	      'div',
-	      null,
+	      'form',
+	      { className: 'login-module' },
 	      _react2.default.createElement(
-	        'a',
-	        { onClick: this.props.back },
-	        'Cancel'
+	        'h3',
+	        null,
+	        'Login'
+	      ),
+	      this.state.error ? _react2.default.createElement(
+	        'p',
+	        { className: 'error' },
+	        'Error: ',
+	        this.state.error
+	      ) : '',
+	      _react2.default.createElement(
+	        'label',
+	        null,
+	        'Username ',
+	        _react2.default.createElement('input', { type: 'text', onChange: function onChange(e) {
+	            return _this.setState({ username: e.target.value });
+	          } })
+	      ),
+	      _react2.default.createElement(
+	        'label',
+	        null,
+	        'Password ',
+	        _react2.default.createElement('input', { type: 'password', onChange: function onChange(e) {
+	            return _this.setState({ password: e.target.value });
+	          } })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'button',
+	          { type: 'submit', onClick: function onClick(e) {
+	              e.preventDefault();_this.props.back();
+	            },
+	            disabled: this.state.loading },
+	          'Cancel'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { type: 'submit', onClick: function onClick(e) {
+	              e.preventDefault();_this.sendModule();
+	            },
+	            disabled: this.state.loading },
+	          'Login'
+	        )
 	      )
 	    );
+	  },
+	  sendModule: function sendModule() {
+	    var _this2 = this;
+
+	    var username = this.state.username.trim();
+
+	    if (username.length < 8) return this.setState({ error: 'Username minimum characters 8' });
+
+	    if (this.state.password < 8) return this.setState({ error: 'Password minimum characters 8' });
+
+	    this.setState({ loading: true });
+
+	    this.props.dispatch({
+	      type: 'getJSON',
+	      url: '/login',
+	      data: {
+	        username: username,
+	        password: this.state.password
+	      },
+	      callback: function callback(result) {
+	        if (result.error) return _this2.setState({ error: result.error, loading: false });
+
+	        _this2.props.dispatch({
+	          type: 'USER_LOGIN',
+	          data: result
+	        });
+	      }
+	    });
 	  }
 	});
 
