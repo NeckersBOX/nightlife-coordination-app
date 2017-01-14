@@ -22842,7 +22842,7 @@
 
 	    return _react2.default.createElement(
 	      'span',
-	      null,
+	      { style: { display: 'inline-block' } },
 	      rating
 	    );
 	  }

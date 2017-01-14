@@ -14,7 +14,7 @@ const Rating = React.createClass ({
       (val, idx) => <i key={'empty-star' + idx} className="material-icons">star_border</i>
     ));
 
-    return <span>{rating}</span>;
+    return <span style={{ display: 'inline-block' }}>{rating}</span>;
   }
 });
 
