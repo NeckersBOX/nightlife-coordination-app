@@ -23393,7 +23393,7 @@
 	var Logged = _react2.default.createClass({
 	  displayName: 'Logged',
 	  getInitialState: function getInitialState() {
-	    return { error: error, false: false, loading: false };
+	    return { error: false, loading: false };
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(

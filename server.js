@@ -5,15 +5,19 @@ const path = require ('path');
 const fs = require ('fs');
 const bodyParser = require ('body-parser');
 const Yelp = require ('yelp');
+const MongoDB = require ('mongodb').MongoClient;
+const md5 = require ('md5');
 
-const buildHTTPError = (res, status) => {
+const buildHTTPError = (res, status, writeHead) => {
   let desc = {
     400: 'Bad Request',
     404: 'Not Found',
     500: 'Internal Server Error'
   };
 
-  res.writeHead (status, { 'Content-Type': 'application/json' });
+  if ( writeHead )
+    res.writeHead (status, { 'Content-Type': 'application/json' });
+
   res.end (JSON.stringify ({
     status: status,
     error: true,
@@ -43,11 +47,11 @@ app.get ('/', (req, res) => res.render ('index', {
 
 app.post ('/locations', (req, res) => {
   if ( !req.body.hasOwnProperty ('location') )
-    return buildHTTPError (res, 400);
+    return buildHTTPError (res, 400, true);
 
   let location = req.body.location.trim ();
   if ( !location.length )
-    return buildHTTPError (res, 400);
+    return buildHTTPError (res, 400, true);
 
   res.writeHead (200, { 'Content-Type': 'application/json' });
 
@@ -56,8 +60,156 @@ app.post ('/locations', (req, res) => {
       res.end (JSON.stringify ({ error: false, res: data }));
     })
     .catch (function (err) {
-      res.end (JSON.stringify ({ error: true, desc: err }));
+      res.end (JSON.stringify ({ error: err }));
     });
+});
+
+app.post ('/signup', (req, res) => {
+  if ( !req.body.hasOwnProperty ('username') || !req.body.hasOwnProperty ('password') )
+    return buildHTTPError (res, 400, true);
+
+  let user_data = {
+    username: req.body.username.trim (),
+    password: req.body.password
+  };
+
+  res.writeHead (200, { 'Content-Type': 'application/json' });
+
+  if ( user_data.username.length < 8 )
+    return res.end (JSON.stringify ({ error: 'Username minimum characters 8' }));
+
+  if ( user_data.password.length < 8 )
+    return res.end (JSON.stringify ({ error: 'Password minimum characters 8' }));
+
+  MongoDB.connect (process.env.mongodb_uri, (err, db) => {
+    if ( err )
+      return buildHTTPError (res, 500, false);
+
+    let collection = db.collection ('nightlife_users');
+
+    collection.findOne ({ username: user_data.username }, (err, doc) => {
+      if ( err ) {
+        db.close ();
+        return buildHTTPError (res, 500, false);
+      }
+
+      if ( doc ) {
+        db.close ();
+        return res.end (JSON.stringify ({ error: 'Username already exists' }));
+      }
+
+      collection.insertOne ({
+        username: user_data.username,
+        password: md5 (user_data.password),
+        register_data: new Date ().getTime (),
+        token: 'no-access'
+      }, (err, r) => {
+        if ( err ) {
+          db.close ();
+          return buildHTTPError (res, 500, false);
+        }
+
+        res.end (JSON.stringify ({ error: null }));
+        db.close ();
+      });
+    });
+  });
+});
+
+app.post ('/login', (req, res) => {
+  if ( !req.body.hasOwnProperty ('username') || !req.body.hasOwnProperty ('password') )
+    return buildHTTPError (res, 400, true);
+
+  let user_data = {
+    username: req.body.username.trim (),
+    password: req.body.password
+  };
+
+  res.writeHead (200, { 'Content-Type': 'application/json' });
+
+  if ( user_data.username.length < 8 )
+    return res.end (JSON.stringify ({ error: 'Username minimum characters 8' }));
+
+  if ( user_data.password.length < 8 )
+    return res.end (JSON.stringify ({ error: 'Password minimum characters 8' }));
+
+  MongoDB.connect (process.env.mongodb_uri, (err, db) => {
+    if ( err )
+      return buildHTTPError (res, 500, false);
+
+    let collection = db.collection ('nightlife_users');
+
+    collection.findOne ({
+      username: user_data.username,
+      password: md5 (user_data.password)
+    }, (err, doc) => {
+      if ( err ) {
+        db.close ();
+        return buildHTTPError (res, 500, false);
+      }
+
+      if ( !doc ) {
+        db.close ();
+        return res.end (JSON.stringify ({ error: 'Username doesn\'t exists' }));
+      }
+
+      let token = md5 (doc.name + new Date ().getTime ());
+      collection.findOneAndReplace ({ _id: doc._id },
+        Object.assign ({}, doc, { token: token }), (err, r) => {
+        if ( err ) {
+          db.close ();
+          return buildHTTPError (res, 500, false);
+        }
+
+        res.end (JSON.stringify ({
+          error: null,
+          name: user_data.username,
+          token: token
+        }));
+
+        db.close ();
+      });
+    });
+  });
+});
+
+app.post ('/logout', (req, res) => {
+  if ( !req.body.hasOwnProperty ('token') )
+    return buildHTTPError (res, 400, true);
+
+  if ( req.body.token.length != 32 )
+    return buildHTTPError (res, 400, true);
+
+  res.writeHead ({ 'Content-Type': 'application/json' });
+
+  MongoDB.connect (process.env.mongodb_uri, (err, db) => {
+    if ( err )
+      return buildHTTPError (res, 500, false);
+
+    let collection = db.collection ('nightlife_users');
+    collection.findOne ({ token: req.body.token }, (err, doc) => {
+      if ( err ) {
+        db.close ();
+        return buildHTTPError (res, 500, false);
+      }
+
+      if ( !doc ) {
+        db.close ()
+        return res.end ({ error: 'No login found.' });
+      }
+
+      collection.findOneAndReplace ({ _id: doc._id },
+        Object.assign ({}, doc, { token: null }), (err, r) => {
+        if ( err ) {
+          db.close ();
+          return buildHTTPError (res, 500, false);
+        }
+
+        res.end (JSON.stringify ({ error: null }));
+        db.close ();
+      })
+    });
+  });
 });
 
 app.listen (process.env.PORT || 3000, err => {

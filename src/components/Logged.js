@@ -4,7 +4,7 @@ import { mapStateToProps } from '../store.js';
 
 const Logged = React.createClass ({
   getInitialState () {
-    return { error, false, loading: false };
+    return { error: false, loading: false };
   },
   render () {
     return (
