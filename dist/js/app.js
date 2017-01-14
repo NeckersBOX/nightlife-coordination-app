@@ -22606,6 +22606,12 @@
 	    case 'getJSON':
 	      getJSON(action.url, action.data, action.callback);
 	      break;
+	    case 'USER_LOGIN':
+	      newState = Object.assign({}, state, { user_auth: action.data });
+	      break;
+	    case 'USER_LOGOUT':
+	      newState = Object.assign({}, state, { user_auth: null, user_business: [] });
+	      break;
 	  }
 
 	  return newState;
