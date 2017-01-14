@@ -37,7 +37,7 @@ a {
     margin: 0 0.5em;
     font-weight: bold; }
     .header a:hover, .header a:focus {
-      background-color: #aaaaaa; }
+      box-shadow: 0 0 7px 0 #eeeeee; }
 
 .loading {
   border-radius: 50%;
