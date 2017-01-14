@@ -1,8 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { mapStateToProps } from '../store.js';
 import Business from './Business';
 import SearchForm from './SearchForm';
 import Businesses from './Businesses';
 import AppInfo from './AppInfo';
+import TwitterLogin from './TwitterLogin';
 
 const Layout = React.createClass ({
   getInitialState () {
@@ -13,7 +16,7 @@ const Layout = React.createClass ({
       <div>
         <div className="header text-center">
           <h1>Nightlife Coordination App</h1>
-          <p>Login with <a>Twitter</a></p>
+          <TwitterLogin />
         </div>
 
         <div className="text-center">
@@ -88,4 +91,7 @@ const Layout = React.createClass ({
   }
 });
 
-export default Layout;
+
+const StoreLayout = connect(mapStateToProps)(Layout);
+
+export default StoreLayout;

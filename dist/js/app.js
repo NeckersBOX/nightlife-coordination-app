@@ -66,13 +66,12 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var StoreLayout = (0, _reactRedux.connect)(_store.mapStateToProps)(_Layout2.default);
 	var store = (0, _redux.createStore)(_store.userData);
 
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRedux.Provider,
 	  { store: store },
-	  _react2.default.createElement(StoreLayout, null)
+	  _react2.default.createElement(_Layout2.default, null)
 	), document.getElementById('container'));
 
 /***/ },
@@ -22665,6 +22664,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRedux = __webpack_require__(166);
+
+	var _store = __webpack_require__(204);
+
 	var _Business = __webpack_require__(206);
 
 	var _Business2 = _interopRequireDefault(_Business);
@@ -22680,6 +22683,10 @@
 	var _AppInfo = __webpack_require__(209);
 
 	var _AppInfo2 = _interopRequireDefault(_AppInfo);
+
+	var _TwitterLogin = __webpack_require__(210);
+
+	var _TwitterLogin2 = _interopRequireDefault(_TwitterLogin);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22700,16 +22707,7 @@
 	          null,
 	          'Nightlife Coordination App'
 	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'Login with ',
-	          _react2.default.createElement(
-	            'a',
-	            null,
-	            'Twitter'
-	          )
-	        )
+	        _react2.default.createElement(_TwitterLogin2.default, null)
 	      ),
 	      _react2.default.createElement(
 	        'div',
@@ -22789,7 +22787,9 @@
 	  }
 	});
 
-	exports.default = Layout;
+	var StoreLayout = (0, _reactRedux.connect)(_store.mapStateToProps)(Layout);
+
+	exports.default = StoreLayout;
 
 /***/ },
 /* 206 */
@@ -23047,6 +23047,51 @@
 	});
 
 	exports.default = AppInfo;
+
+/***/ },
+/* 210 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(166);
+
+	var _store = __webpack_require__(204);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var TwitterLogin = _react2.default.createClass({
+	  displayName: 'TwitterLogin',
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        'Login with ',
+	        _react2.default.createElement(
+	          'a',
+	          { onClick: this.twitterLogin },
+	          'Twitter'
+	        )
+	      )
+	    );
+	  },
+	  twitterLogin: function twitterLogin() {}
+	});
+
+	var StoreTwitterLogin = (0, _reactRedux.connect)(_store.mapStateToProps)(TwitterLogin);
+
+	exports.default = StoreTwitterLogin;
 
 /***/ }
 /******/ ]);
