@@ -22592,17 +22592,12 @@
 	var userData = exports.userData = function userData(state, action) {
 	  if (typeof state === 'undefined') {
 	    return {
-	      user_auth: null,
-	      user_businesses: [],
-	      location: ''
+	      user_auth: null
 	    };
 	  }
 
 	  var newState = state;
 	  switch (action.type) {
-	    case 'SET_LOCATION':
-	      newState = Object.assign({}, state, { location: action.data });
-	      break;
 	    case 'getJSON':
 	      getJSON(action.url, action.data, action.callback);
 	      break;
@@ -22619,14 +22614,7 @@
 
 	var mapStateToProps = exports.mapStateToProps = function mapStateToProps(state) {
 	  return {
-	    userAuth: state.user_auth,
-	    userBusinesses: state.user_businesses.map(function (val) {
-	      return {
-	        location: val.location,
-	        business: val.business
-	      };
-	    }),
-	    location: state.location
+	    userAuth: state.user_auth
 	  };
 	};
 
@@ -22679,19 +22667,19 @@
 
 	var _Business2 = _interopRequireDefault(_Business);
 
-	var _SearchForm = __webpack_require__(207);
+	var _SearchForm = __webpack_require__(208);
 
 	var _SearchForm2 = _interopRequireDefault(_SearchForm);
 
-	var _Businesses = __webpack_require__(208);
+	var _Businesses = __webpack_require__(209);
 
 	var _Businesses2 = _interopRequireDefault(_Businesses);
 
-	var _AppInfo = __webpack_require__(209);
+	var _AppInfo = __webpack_require__(210);
 
 	var _AppInfo2 = _interopRequireDefault(_AppInfo);
 
-	var _Authentication = __webpack_require__(210);
+	var _Authentication = __webpack_require__(211);
 
 	var _Authentication2 = _interopRequireDefault(_Authentication);
 
@@ -22756,12 +22744,6 @@
 
 	        if (result.res.businesses.length) {
 	          _this.setState({ data: result.res.businesses, loading: false });
-
-	          _this.props.dispatch({
-	            type: 'SET_LOCATION',
-	            data: location
-	          });
-
 	          return;
 	        }
 
@@ -22812,6 +22794,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _GoingLink = __webpack_require__(207);
+
+	var _GoingLink2 = _interopRequireDefault(_GoingLink);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Rating = _react2.default.createClass({
@@ -22851,7 +22837,6 @@
 	var Business = _react2.default.createClass({
 	  displayName: 'Business',
 	  render: function render() {
-	    console.log(this.props);
 	    var snippet = _react2.default.createElement(
 	      'div',
 	      { className: 'snippet' },
@@ -22898,7 +22883,9 @@
 	          'a',
 	          { href: this.props.url },
 	          'Show on Yelp'
-	        )
+	        ),
+	        ' ',
+	        _react2.default.createElement(_GoingLink2.default, { id: this.props.id })
 	      ),
 	      this.props.snippet_image_url && this.props.snippet_text ? snippet : ''
 	    );
@@ -22909,6 +22896,63 @@
 
 /***/ },
 /* 207 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(166);
+
+	var _store = __webpack_require__(204);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var GoingLink = _react2.default.createClass({
+	  displayName: 'GoingLink',
+	  getInitialState: function getInitialState() {
+	    return { loaded: false, usersGoing: 0 };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var _this = this;
+
+	    this.props.dispatch({
+	      type: 'getJSON',
+	      url: '/users-going',
+	      data: {
+	        id: this.props.id
+	      },
+	      callback: function callback(result) {
+	        if (result.error) return console.error(result.error);
+
+	        _this.setState({ loaded: true, usersGoing: result.usersGoing });
+	      }
+	    });
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'a',
+	      { onClick: this.toggleGoing },
+	      this.state.loaded ? this.state.usersGoing + ' Going' : _react2.default.createElement('div', { className: 'loading-small' })
+	    );
+	  },
+	  toggleGoing: function toggleGoing() {
+	    console.log('Check ' + this.props.id);
+	  }
+	});
+
+	var StoreGoingLink = (0, _reactRedux.connect)(_store.mapStateToProps)(GoingLink);
+
+	exports.default = StoreGoingLink;
+
+/***/ },
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22959,7 +23003,7 @@
 	exports.default = SearchForm;
 
 /***/ },
-/* 208 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22993,7 +23037,7 @@
 	exports.default = Businesses;
 
 /***/ },
-/* 209 */
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -23057,7 +23101,7 @@
 	exports.default = AppInfo;
 
 /***/ },
-/* 210 */
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23074,15 +23118,15 @@
 
 	var _store = __webpack_require__(204);
 
-	var _SignUp = __webpack_require__(211);
+	var _SignUp = __webpack_require__(212);
 
 	var _SignUp2 = _interopRequireDefault(_SignUp);
 
-	var _Login = __webpack_require__(212);
+	var _Login = __webpack_require__(213);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
-	var _Logged = __webpack_require__(213);
+	var _Logged = __webpack_require__(214);
 
 	var _Logged2 = _interopRequireDefault(_Logged);
 
@@ -23130,7 +23174,7 @@
 	exports.default = StoreAuthentication;
 
 /***/ },
-/* 211 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23253,7 +23297,7 @@
 	exports.default = StoreSignup;
 
 /***/ },
-/* 212 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23372,7 +23416,7 @@
 	exports.default = StoreLogin;
 
 /***/ },
-/* 213 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

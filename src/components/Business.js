@@ -1,4 +1,5 @@
 import React from 'react';
+import GoingLink from './GoingLink';
 
 const Rating = React.createClass ({
   render () {
@@ -20,7 +21,6 @@ const Rating = React.createClass ({
 
 const Business = React.createClass ({
   render () {
-    console.log (this.props);
     let snippet = (
       <div className="snippet">
         <p>
@@ -41,7 +41,7 @@ const Business = React.createClass ({
             <span className="badge">Food & Bar</span>}
 
           <p>Phone {this.props.display_phone}</p>
-          <a href={this.props.url}>Show on Yelp</a>
+          <a href={this.props.url}>Show on Yelp</a> <GoingLink id={this.props.id} />
         </div>
 
         {(this.props.snippet_image_url && this.props.snippet_text) ? snippet : ''}
