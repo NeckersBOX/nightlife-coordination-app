@@ -54,6 +54,12 @@ const Layout = React.createClass ({
 
         if ( result.res.businesses.length ) {
           this.setState ({ data: result.res.businesses, loading: false });
+
+          this.props.dispatch ({
+            type: 'SET_LOCATION',
+            data: location
+          });
+
           return;
         }
 

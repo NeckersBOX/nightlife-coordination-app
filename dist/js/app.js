@@ -22592,12 +22592,16 @@
 	var userData = exports.userData = function userData(state, action) {
 	  if (typeof state === 'undefined') {
 	    return {
-	      user_auth: null
+	      user_auth: null,
+	      location: ''
 	    };
 	  }
 
 	  var newState = state;
 	  switch (action.type) {
+	    case 'SET_LOCATION':
+	      newState = Object.assign({}, state, { location: action.data });
+	      break;
 	    case 'getJSON':
 	      getJSON(action.url, action.data, action.callback);
 	      break;
@@ -22614,7 +22618,8 @@
 
 	var mapStateToProps = exports.mapStateToProps = function mapStateToProps(state) {
 	  return {
-	    userAuth: state.user_auth
+	    userAuth: state.user_auth,
+	    location: state.location
 	  };
 	};
 
@@ -22744,6 +22749,12 @@
 
 	        if (result.res.businesses.length) {
 	          _this.setState({ data: result.res.businesses, loading: false });
+
+	          _this.props.dispatch({
+	            type: 'SET_LOCATION',
+	            data: location
+	          });
+
 	          return;
 	        }
 
