@@ -1,17 +1,12 @@
 export const userData = (state, action) => {
   if ( typeof state === 'undefined' ) {
     return {
-      user_auth: null,
-      user_businesses: [],
-      location: ''
+      user_auth: null
     }
   }
 
   let newState = state;
   switch (action.type) {
-    case 'SET_LOCATION':
-      newState = Object.assign ({}, state, { location: action.data });
-      break;
     case 'getJSON':
       getJSON (action.url, action.data, action.callback);
       break;
@@ -28,12 +23,7 @@ export const userData = (state, action) => {
 
 export const mapStateToProps = (state) => {
   return {
-    userAuth: state.user_auth,
-    userBusinesses: state.user_businesses.map ((val) => ({
-      location: val.location,
-      business: val.business
-    })),
-    location: state.location
+    userAuth: state.user_auth
   };
 };
 
