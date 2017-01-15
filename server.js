@@ -179,19 +179,19 @@ app.post ('/logout', (req, res) => {
 
   if ( req.body.token.length != 32 )
     return buildHTTPError (res, 400, true);
-  
-  res.writeHead ({ 'Content-Type': 'application/json' });
 
   MongoDB.connect (process.env.mongodb_uri, (err, db) => {
     if ( err )
-      return buildHTTPError (res, 500, false);
+      return buildHTTPError (res, 500, true);
 
     let collection = db.collection ('nightlife_users');
     collection.findOne ({ token: req.body.token }, (err, doc) => {
       if ( err ) {
         db.close ();
-        return buildHTTPError (res, 500, false);
+        return buildHTTPError (res, 500, true);
       }
+
+      res.writeHead ({ 'Content-Type': 'application/json' });
 
       if ( !doc ) {
         db.close ()
