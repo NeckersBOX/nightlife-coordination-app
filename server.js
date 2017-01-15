@@ -180,6 +180,8 @@ app.post ('/logout', (req, res) => {
   if ( req.body.token.length != 32 )
     return buildHTTPError (res, 400, true);
 
+  console.log ('MongoDB connect');
+  
   MongoDB.connect (process.env.mongodb_uri, (err, db) => {
     if ( err )
       return buildHTTPError (res, 500, true);
