@@ -29,7 +29,26 @@ const GoingLink = React.createClass ({
     );
   },
   toggleGoing () {
-    console.log ('Check ' + this.props.id);
+    this.setState ({ loaded: false });
+
+    this.props.dispatch ({
+      type: 'getJSON',
+      url: '/toggle-user-preference',
+      data: {
+        userToken: this.props.userAuth.token,
+        userName: this.props.userAuth.name
+        businessId: this.props.id
+      },
+      callback: (result) => {
+        if ( result.error )
+          return console.error (result.error);
+
+        this.setState ({
+          loaded: true,
+          usersGoing: this.state.usersGoing + result.toggle
+        });
+      }
+    });
   }
 });
 

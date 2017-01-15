@@ -236,6 +236,73 @@ app.post ('/users-going', (req, res) => {
   });
 });
 
+app.post ('/toogle-user-preference', (req, res) => {
+  if ( !req.body.hasOwnProperty ('userToken')
+    || !req.body.hasOwnProperty ('userName')
+    || !req.body.hasOwnProperty ('businessId') )
+    return buildHTTPError (res, 400, true);
+
+  if ( req.body.userToken.length != 32 || req.body.userName.length < 8 )
+    return buildHTTPError (res, 400, true);
+
+  res.writeHead (200, { 'Content-Type': 'application/json' });
+
+  MongoDB.connect (process.env.mongodb_uri, (err, db) => {
+    if ( err )
+      return buildHTTPError (res, 500, false);
+
+    db.collection ('nightlife_users').findOne ({ token: req.body.userToken }, (err, doc) => {
+      if ( err ) {
+        db.close ();
+        return buildHTTPError (res, 500, false);
+      }
+
+      if ( !doc ) {
+        db.close ();
+        return res.end (JSON.stringify ({ error: 'User not authenticated.' }));
+      }
+
+      let collection = db.collection ('nightlife_going');
+
+      collection.findOne ({
+        username: req.body.userName,
+        business: req.body.businessId
+      }, (err, doc) => {
+        if ( err ) {
+          db.close ();
+          return buildHTTPError (res, 500, false);
+        }
+
+        if ( doc ) {
+          collection.findOneAndDelete (doc, (err, r) => {
+            if ( err ) {
+              db.close ();
+              return buildHTTPError (res, 500, false);
+            }
+
+            db.close ();
+            res.end (JSON.stringify ({ error: false, toggle: -1 }));
+          });
+        }
+        else {
+          collection.insertOne ({
+            username: req.body.userName,
+            business: req.body.businessId
+          }, (err, r) => {
+            if ( err ) {
+              db.close ();
+              return buildHTTPError (res, 500, false);
+            }
+
+            db.close ();
+            res.end (JSON.stringify ({ error: false, toggle: +1 }));
+          });
+        }
+      });
+    });
+  });
+});
+
 app.listen (process.env.PORT || 3000, err => {
   if ( err )
     return console.error (err);

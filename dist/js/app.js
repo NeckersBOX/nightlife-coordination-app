@@ -22954,7 +22954,23 @@
 	    );
 	  },
 	  toggleGoing: function toggleGoing() {
-	    console.log('Check ' + this.props.id);
+	    var _this2 = this;
+
+	    this.setState({ loaded: false });
+
+	    this.props.dispatch({
+	      type: 'getJSON',
+	      url: '/toggle-user-preference',
+	      data: {
+	        userToken: this.props.userAuth.token,
+	        businessId: this.props.id
+	      },
+	      callback: function callback(result) {
+	        if (result.error) return console.error(result.error);
+
+	        _this2.setState({ loaded: true, usersGoing: result.usersGoing });
+	      }
+	    });
 	  }
 	});
 
