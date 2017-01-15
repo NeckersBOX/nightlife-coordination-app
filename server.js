@@ -224,7 +224,7 @@ app.post ('/users-going', (req, res) => {
 
     let collection = db.collection ('nightlife_going');
 
-    collection.count ({ business_id: req.body.id }, (err, count) => {
+    collection.count ({ business: req.body.id }, (err, count) => {
       if ( err ) {
         db.close ();
         return buildHTTPError (res, 500, false);
