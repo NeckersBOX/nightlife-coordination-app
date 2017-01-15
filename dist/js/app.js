@@ -22939,7 +22939,7 @@
 	    return _react2.default.createElement(
 	      'a',
 	      { onClick: this.toggleGoing },
-	      this.state.loaded ? this.state.usersGoing + ' Going' : _react2.default.createElement('div', { className: 'loading-small' })
+	      this.state.loaded ? this.state.usersGoing + ' Going' : 'Loading..'
 	    );
 	  },
 	  toggleGoing: function toggleGoing() {

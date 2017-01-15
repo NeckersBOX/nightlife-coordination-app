@@ -24,9 +24,7 @@ const GoingLink = React.createClass ({
   render () {
     return (
       <a onClick={this.toggleGoing}>
-        {this.state.loaded ?
-          this.state.usersGoing + ' Going' :
-          <div className="loading-small"></div>}
+        {this.state.loaded ? this.state.usersGoing + ' Going' : 'Loading..' }
       </a>
     );
   },
