@@ -212,6 +212,30 @@ app.post ('/logout', (req, res) => {
   });
 });
 
+app.post ('/users-going', (req, res) => {
+  if ( !req.body.hasOwnProperty ('id') )
+    return buildHTTPError (res, 400, true);
+
+  res.writeHead ({ 'Content-Type': 'application/json' });
+
+  MongoDB.connect (process.env.mongodb_uri, (err, db) => {
+    if ( err )
+      return buildHTTPError (res, 500, false);
+
+    let collection = db.collection ('nightlife_going');
+
+    collection.count ({ business_id: req.body.id }, (err, count) => {
+      if ( err ) {
+        db.close ();
+        return buildHTTPError (res, 500, false);
+      }
+
+      db.close ();
+      res.end (JSON.stringify ({ error: false, usersGoing: count }));
+    });
+  });
+});
+
 app.listen (process.env.PORT || 3000, err => {
   if ( err )
     return console.error (err);
