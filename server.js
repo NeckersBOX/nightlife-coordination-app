@@ -179,9 +179,9 @@ app.post ('/logout', (req, res) => {
 
   if ( req.body.token.length != 32 )
     return buildHTTPError (res, 400, true);
-  console.log ('go to do writeHead');
+  
   res.writeHead ({ 'Content-Type': 'application/json' });
-  console.log ('connect to mongodb');
+
   MongoDB.connect (process.env.mongodb_uri, (err, db) => {
     if ( err )
       return buildHTTPError (res, 500, false);
