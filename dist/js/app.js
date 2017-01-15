@@ -22949,7 +22949,7 @@
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'a',
-	      { onClick: this.toggleGoing },
+	      { onClick: this.props.userAuth ? this.toggleGoing : null },
 	      this.state.loaded ? this.state.usersGoing + ' Going' : 'Loading..'
 	    );
 	  },
@@ -22963,12 +22963,16 @@
 	      url: '/toggle-user-preference',
 	      data: {
 	        userToken: this.props.userAuth.token,
+	        userName: this.props.userAuth.name,
 	        businessId: this.props.id
 	      },
 	      callback: function callback(result) {
 	        if (result.error) return console.error(result.error);
 
-	        _this2.setState({ loaded: true, usersGoing: result.usersGoing });
+	        _this2.setState({
+	          loaded: true,
+	          usersGoing: _this2.state.usersGoing + result.toggle
+	        });
 	      }
 	    });
 	  }

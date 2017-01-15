@@ -23,7 +23,7 @@ const GoingLink = React.createClass ({
   },
   render () {
     return (
-      <a onClick={this.toggleGoing}>
+      <a onClick={this.props.userAuth ? this.toggleGoing : null}>
         {this.state.loaded ? this.state.usersGoing + ' Going' : 'Loading..' }
       </a>
     );
@@ -36,7 +36,7 @@ const GoingLink = React.createClass ({
       url: '/toggle-user-preference',
       data: {
         userToken: this.props.userAuth.token,
-        userName: this.props.userAuth.name
+        userName: this.props.userAuth.name,
         businessId: this.props.id
       },
       callback: (result) => {
