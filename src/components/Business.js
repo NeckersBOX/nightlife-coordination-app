@@ -20,6 +20,7 @@ const Rating = React.createClass ({
 
 const Business = React.createClass ({
   render () {
+    console.log (this.props);
     let snippet = (
       <div className="snippet">
         <p>

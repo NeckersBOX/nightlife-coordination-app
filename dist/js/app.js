@@ -22851,6 +22851,7 @@
 	var Business = _react2.default.createClass({
 	  displayName: 'Business',
 	  render: function render() {
+	    console.log(this.props);
 	    var snippet = _react2.default.createElement(
 	      'div',
 	      { className: 'snippet' },
