@@ -236,7 +236,7 @@ app.post ('/users-going', (req, res) => {
   });
 });
 
-app.post ('/toogle-user-preference', (req, res) => {
+app.post ('/toggle-user-preference', (req, res) => {
   if ( !req.body.hasOwnProperty ('userToken')
     || !req.body.hasOwnProperty ('userName')
     || !req.body.hasOwnProperty ('businessId') )
